@@ -41,7 +41,7 @@ body.light-theme {
 }
 
 html {
-    scroll-behavior: smooth;
+    /* Removed global smooth scroll to prevent unwanted animated jump on restoring previous position */
     overflow-x: hidden;
 }
 
@@ -66,56 +66,7 @@ body {
     -webkit-text-fill-color: transparent;
 }
 
-/* ===========================
-   PRELOADER
-=========================== */
-.preloader {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: var(--bg-dark);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    z-index: 10000;
-    transition: opacity 0.5s ease, visibility 0.5s ease;
-}
-
-.preloader.hidden {
-    opacity: 0;
-    visibility: hidden;
-}
-
-.shimmer-wrapper {
-    width: 200px;
-    height: 4px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
-    overflow: hidden;
-    position: relative;
-}
-
-.shimmer {
-    width: 50%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, var(--primary-cyan), var(--primary-green), transparent);
-    animation: shimmer 1.5s infinite;
-}
-
-@keyframes shimmer {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(300%); }
-}
-
-.loading-text {
-    margin-top: 20px;
-    font-size: 18px;
-    color: var(--text-gray);
-    letter-spacing: 2px;
-}
+/* (Preloader removed) */
 
 /* ===========================
    FLOATING PARTICLES
@@ -4020,6 +3971,37 @@ body.light-theme .lightbox-controls {
 .fade-in.visible {
     opacity: 1;
     transform: translateY(0);
+}
+
+/* Page transition animations */
+.fade-out {
+    animation: fadeOut 0.3s ease forwards;
+}
+
+.fade-in-active {
+    animation: fadeIn 0.3s ease forwards;
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* ===========================

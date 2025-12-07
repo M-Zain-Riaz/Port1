@@ -1,12 +1,4 @@
-// ===========================
-// PRELOADER
-// ===========================
-window.addEventListener('load', () => {
-    const preloader = document.querySelector('.preloader');
-    setTimeout(() => {
-        preloader.classList.add('hidden');
-    }, 1000);
-});
+// (Preloader removed) Show content immediately without overlay.
 
 // ===========================
 // THEME TOGGLE
@@ -69,15 +61,21 @@ navLinks.forEach(link => {
 // Active link on scroll
 window.addEventListener('scroll', () => {
     let current = '';
-    const sections = document.querySelectorAll('section');
     
-    sections.forEach(section => {
-        const sectionTop = section.offsetTop;
-        const sectionHeight = section.clientHeight;
-        if (scrollY >= sectionTop - 200) {
-            current = section.getAttribute('id');
-        }
-    });
+    // If in portfolio fullscreen mode, always highlight Portfolio
+    if (document.body.classList.contains('portfolio-fullscreen')) {
+        current = 'portfolio';
+    } else {
+        const sections = document.querySelectorAll('section');
+        
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.clientHeight;
+            if (scrollY >= sectionTop - 200) {
+                current = section.getAttribute('id');
+            }
+        });
+    }
 
     navLinks.forEach(link => {
         link.classList.remove('active');
@@ -148,6 +146,43 @@ document.querySelectorAll('.spotlight-card').forEach(el => {
 });
 
 // ===========================
+// SCROLL RESTORATION UTILITIES
+// ===========================
+const scrollHistory = [];
+const saveScrollPosition = () => {
+    scrollHistory.push(window.scrollY);
+};
+const restoreScrollPosition = (smooth = false) => {
+    const y = scrollHistory.pop();
+    if (typeof y !== 'number') return;
+
+    const html = document.documentElement;
+    const body = document.body;
+
+    // Temporarily force instant scroll to avoid CSS html{scroll-behavior:smooth}
+    const prevHtmlBehavior = html.style.scrollBehavior;
+    const prevBodyBehavior = body.style.scrollBehavior;
+    html.style.scrollBehavior = smooth ? 'smooth' : 'auto';
+    body.style.scrollBehavior = smooth ? 'smooth' : 'auto';
+
+    // Ensure DOM is painted before restoring position (2 rAFs for safety)
+    requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+            // Use both APIs for cross-browser reliability
+            window.scrollTo(0, y);
+            html.scrollTop = y;
+            body.scrollTop = y;
+
+            // Cleanup override on next frame to restore normal behavior
+            requestAnimationFrame(() => {
+                html.style.scrollBehavior = prevHtmlBehavior;
+                body.style.scrollBehavior = prevBodyBehavior;
+            });
+        });
+    });
+};
+
+// ===========================
 // SPOTLIGHT OVERLAYS (Education, Certificates, Experience, Team)
 // ===========================
 const spotlightInteractiveCards = document.querySelectorAll('.spotlight-card[data-spotlight-target]');
@@ -167,12 +202,8 @@ const closeSpotlightDetail = () => {
     });
     document.body.classList.remove('spotlight-fullscreen');
 
-    if (activeSpotlightSectionId) {
-        const section = document.getElementById(activeSpotlightSectionId);
-        if (section) {
-            section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-    }
+    // Restore the exact scroll position where the user opened the spotlight
+    restoreScrollPosition(true);
 
     activeSpotlightSectionId = null;
 };
@@ -193,8 +224,9 @@ const openSpotlightDetail = (detailId) => {
 
     document.body.classList.add('spotlight-fullscreen');
     document.body.classList.remove('portfolio-fullscreen');
-
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    
+    // Save current scroll position so we can return to it on close
+    saveScrollPosition();
 };
 
 const teamCardCTAButtons = document.querySelectorAll('.team-card-cta-btn');
@@ -254,99 +286,158 @@ const backButtons = document.querySelectorAll('.back-button');
 const allSections = document.querySelectorAll('section:not(#portfolio)');
 const footer = document.querySelector('.footer');
 
+// Declare app/software navigation elements at the top so they're available for back button handler
+const appCards = document.querySelectorAll('.app-card');
+const appDetailViews = document.querySelectorAll('.app-detail-view');
+const appGrid = document.getElementById('appGrid');
+const backToAppsButtons = document.querySelectorAll('.back-to-apps-button');
+
+const softwareCards = document.querySelectorAll('.software-card');
+const softwareDetailViews = document.querySelectorAll('.software-detail-view');
+const softwareGrid = document.getElementById('softwareGrid');
+const backToSoftwareButtons = document.querySelectorAll('.back-to-software-button');
+
 categoryCards.forEach(card => {
     card.addEventListener('click', () => {
         const category = card.getAttribute('data-category');
         const detailSection = document.getElementById(category);
         
         if (detailSection) {
-            // Hide ALL other sections
-            allSections.forEach(section => {
-                section.style.display = 'none';
-            });
+            // Save current scroll position before switching views
+            saveScrollPosition();
             
-            // Hide footer
-            if (footer) {
-                footer.style.display = 'none';
-            }
+            // Add fade-out class to categories grid for smooth transition
+            categoriesGrid.classList.add('fade-out');
             
-            // Hide portfolio section header
-            if (portfolioHeader) {
-                portfolioHeader.style.display = 'none';
-            }
-            
-            // Hide categories grid
-            categoriesGrid.style.display = 'none';
-            
-            // Hide all detail sections
-            categoryDetails.forEach(detail => {
-                detail.style.display = 'none';
-            });
-            
-            // Show selected detail section
-            detailSection.style.display = 'block';
-            
-            // Add class to body for full-screen mode
-            document.body.classList.add('portfolio-fullscreen');
-            
-            // Scroll to top of page
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-            
-            // Initialize slideshows for this category
-            initializeSlideshows(detailSection);
+            // Wait for fade-out animation before switching
+            setTimeout(() => {
+                // Hide ALL other sections
+                allSections.forEach(section => {
+                    section.style.display = 'none';
+                });
+                
+                // Hide footer
+                if (footer) {
+                    footer.style.display = 'none';
+                }
+                
+                // Hide portfolio section header
+                if (portfolioHeader) {
+                    portfolioHeader.style.display = 'none';
+                }
+                
+                // Hide categories grid
+                categoriesGrid.style.display = 'none';
+                categoriesGrid.classList.remove('fade-out');
+                
+                // Hide all detail sections
+                categoryDetails.forEach(detail => {
+                    detail.style.display = 'none';
+                });
+                
+                // Show selected detail section
+                detailSection.style.display = 'block';
+                
+                // Add class to body for full-screen mode
+                document.body.classList.add('portfolio-fullscreen');
+                
+                // Scroll to top of the detail view instantly
+                requestAnimationFrame(() => {
+                    window.scrollTo(0, 0);
+                });
+                
+                // Fade in the detail section
+                detailSection.classList.add('fade-in-active');
+                
+                // Initialize slideshows for this category
+                initializeSlideshows(detailSection);
+            }, 300); // Match the CSS transition duration
         }
     });
 });
 
 backButtons.forEach(button => {
     button.addEventListener('click', () => {
-        // Hide all detail sections
-        categoryDetails.forEach(detail => {
-            detail.style.display = 'none';
-        });
+        // Check if we're coming from an app/software detail view (nested navigation)
+        const isFromAppDetail = appDetailViews && Array.from(appDetailViews).some(view => view.style.display !== 'none');
+        const isFromSoftwareDetail = softwareDetailViews && Array.from(softwareDetailViews).some(view => view.style.display !== 'none');
         
-        // Show ALL other sections again - clear inline styles to restore defaults
-        allSections.forEach(section => {
-            section.style.display = '';
-        });
-        
-        // Show footer
-        if (footer) {
-            footer.style.display = '';
+        // If coming from a nested detail view, discard the intermediate scroll position
+        if (isFromAppDetail || isFromSoftwareDetail) {
+            scrollHistory.pop(); // Discard the scroll position saved when clicking the card
         }
         
-        // Show portfolio section header
-        if (portfolioHeader) {
-            portfolioHeader.style.display = '';
+        // Add fade-out to current detail section
+        const activeDetail = document.querySelector('.category-details[style*="display: block"]');
+        if (activeDetail) {
+            activeDetail.classList.add('fade-out');
         }
         
-        // Show categories grid
-        categoriesGrid.style.display = '';
-        
-        // Remove full-screen class
-        document.body.classList.remove('portfolio-fullscreen');
-        
-        // Ensure DOM updates before scrolling
+        // Wait for fade-out animation
         setTimeout(() => {
-            document.getElementById('portfolio').scrollIntoView({ behavior: 'smooth' });
-        }, 50);
+            // Reset all app/software detail views and grids to default state
+            appDetailViews.forEach(view => {
+                view.style.display = 'none';
+            });
+            softwareDetailViews.forEach(view => {
+                view.style.display = 'none';
+            });
+            if (appGrid) {
+                appGrid.style.display = 'grid';
+            }
+            if (softwareGrid) {
+                softwareGrid.style.display = 'grid';
+            }
+            
+            // Hide all detail sections
+            categoryDetails.forEach(detail => {
+                detail.style.display = 'none';
+                detail.classList.remove('fade-out', 'fade-in-active');
+            });
+            
+            // Show ALL other sections again - clear inline styles to restore defaults
+            allSections.forEach(section => {
+                section.style.display = '';
+            });
+            
+            // Show footer
+            if (footer) {
+                footer.style.display = '';
+            }
+            
+            // Show portfolio section header
+            if (portfolioHeader) {
+                portfolioHeader.style.display = '';
+            }
+            
+            // Show categories grid
+            categoriesGrid.style.display = '';
+            
+            // Remove full-screen class
+            document.body.classList.remove('portfolio-fullscreen');
+            
+            // Restore previous scroll position instantly (no smooth scrolling)
+            restoreScrollPosition(false);
+            
+            // Fade in the categories grid
+            categoriesGrid.classList.add('fade-in-active');
+            setTimeout(() => {
+                categoriesGrid.classList.remove('fade-in-active');
+            }, 300);
+        }, 300); // Match the CSS transition duration
     });
 });
 
 // ===========================
 // APP CARDS NAVIGATION (within App Development)
 // ===========================
-const appCards = document.querySelectorAll('.app-card');
-const appDetailViews = document.querySelectorAll('.app-detail-view');
-const appGrid = document.getElementById('appGrid');
-const backToAppsButtons = document.querySelectorAll('.back-to-apps-button');
-
 appCards.forEach(card => {
     card.addEventListener('click', () => {
         const appId = card.getAttribute('data-app');
         const appDetailView = document.getElementById(appId);
         
         if (appDetailView) {
+            saveScrollPosition();
             // Hide app grid
             appGrid.style.display = 'none';
             
@@ -358,8 +449,7 @@ appCards.forEach(card => {
             // Show selected app detail view
             appDetailView.style.display = 'block';
             
-            // Scroll to portfolio section
-            document.getElementById('portfolio').scrollIntoView({ behavior: 'smooth' });
+            // Don't modify scroll
             
             // Initialize slideshows for this app
             initializeSlideshows(appDetailView);
@@ -376,20 +466,14 @@ backToAppsButtons.forEach(button => {
         
         // Show app grid
         appGrid.style.display = 'grid';
-        
-        // Scroll to portfolio section
-        document.getElementById('portfolio').scrollIntoView({ behavior: 'smooth' });
+        // Restore previous scroll position instantly
+        restoreScrollPosition(false);
     });
 });
 
 // ===========================
 // SOFTWARE CARDS NAVIGATION (within Software Development)
 // ===========================
-const softwareCards = document.querySelectorAll('.software-card');
-const softwareDetailViews = document.querySelectorAll('.software-detail-view');
-const softwareGrid = document.getElementById('softwareGrid');
-const backToSoftwareButtons = document.querySelectorAll('.back-to-software-button');
-
 softwareCards.forEach(card => {
     card.addEventListener('click', () => {
         const softwareId = card.getAttribute('data-software');
@@ -405,6 +489,7 @@ softwareCards.forEach(card => {
         const softwareDetailView = document.getElementById(softwareId);
         
         if (softwareDetailView) {
+            saveScrollPosition();
             // Hide software grid
             softwareGrid.style.display = 'none';
             
@@ -416,8 +501,7 @@ softwareCards.forEach(card => {
             // Show selected software detail view
             softwareDetailView.style.display = 'block';
             
-            // Scroll to portfolio section
-            document.getElementById('portfolio').scrollIntoView({ behavior: 'smooth' });
+            // Keep current scroll position
             
             // Initialize slideshows for this software
             initializeSlideshows(softwareDetailView);
@@ -434,9 +518,8 @@ backToSoftwareButtons.forEach(button => {
         
         // Show software grid
         softwareGrid.style.display = 'grid';
-        
-        // Scroll to portfolio section
-        document.getElementById('portfolio').scrollIntoView({ behavior: 'smooth' });
+        // Restore previous scroll position instantly
+        restoreScrollPosition(false);
     });
 });
 
