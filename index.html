@@ -37,7 +37,7 @@
     <nav class="navbar">
         <div class="nav-container">
             <div class="logo">
-                <span class="gradient-text">MZR</span>
+                <span class="gradient-text">ZAIN</span>
             </div>
             <div class="theme-toggle" aria-label="Switch color theme">
                 <input type="checkbox" id="themeToggle" class="theme-toggle-input" aria-label="Toggle light mode">
@@ -69,43 +69,75 @@
 
     <!-- Home Section -->
     <section id="home" class="hero-section">
-        <div class="parallax-layer layer-1"></div>
-        <div class="parallax-layer layer-2"></div>
-        <div class="parallax-layer layer-3"></div>
-        
-        <div class="hero-content">
-            <h1 class="hero-title animate-text">
-                Hi, I'm <span class="gradient-text">Muhammad Zain Riaz</span>
-            </h1>
-            <p class="hero-subtitle animate-text">Full Stack Developer | Designer | Creative Innovator</p>
-            <p class="hero-description animate-text">
-                Crafting stunning digital experiences with cutting-edge technology and creative design.
-                Let's build something extraordinary together.
-            </p>
-            <div class="hero-buttons animate-text">
-                <a href="#portfolio" class="btn btn-primary">View My Work</a>
-                <a href="#contact" class="btn btn-secondary">Get In Touch</a>
-            </div>
-            <div class="cv-download-card animate-text">
-                <div class="cv-card-content">
-                    <div class="cv-icon">
-                        <i class="fas fa-file-download"></i>
+        <div class="hero-container">
+            <div class="hero-content">
+                <!-- Greeting -->
+                <span class="hero-greeting">Hello, I'm</span>
+                
+                <!-- Name with gradient on ZAIN -->
+                <h1 class="hero-name">
+                    <span class="name-line">Muhammad <span class="name-gradient">Zain</span> Riaz</span>
+                </h1>
+                
+                <!-- Role -->
+                <p class="hero-role">Full Stack Developer & UI/UX Designer</p>
+                
+                <!-- Tagline -->
+                <p class="hero-tagline">
+                    I build modern, scalable web applications and create intuitive user experiences that help businesses grow.
+                </p>
+                
+                <!-- Stats Row -->
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">30+</span>
+                        <span class="stat-label">Happy Clients</span>
                     </div>
-                    <div class="cv-copy">
-                        <h3>Download My CV</h3>
-                        <p>Get the latest PDF resume featuring my experience, skills, and achievements.</p>
+                    <div class="stat-divider"></div>
+                    <div class="stat-item">
+                        <span class="stat-number">50+</span>
+                        <span class="stat-label">Projects Done</span>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat-item">
+                        <span class="stat-number">3+</span>
+                        <span class="stat-label">Years Experience</span>
                     </div>
                 </div>
-                <a href="images/CV.pdf" class="cv-download-btn" download>
-                    <span>Download CV</span>
-                    <i class="fas fa-arrow-down"></i>
-                </a>
+                
+                <!-- CTA - Simple text links -->
+                <div class="hero-cta">
+                    <a href="images/CV.pdf" class="cta-link cta-primary" download>
+                        <i class="fas fa-download"></i> Download CV
+                    </a>
+                    <a href="#contact" class="cta-link cta-secondary">
+                        Let's Talk <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+                
+                <!-- Social Links -->
+                <div class="hero-socials">
+                    <a href="https://github.com/" class="social-icon social-github" target="_blank" rel="noopener noreferrer">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://linkedin.com/" class="social-icon social-linkedin" target="_blank" rel="noopener noreferrer">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="https://facebook.com/" class="social-icon social-facebook" target="_blank" rel="noopener noreferrer">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="https://instagram.com/" class="social-icon social-instagram" target="_blank" rel="noopener noreferrer">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                </div>
             </div>
-            <div class="social-links animate-text">
-                <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
-                <a href="#" class="social-icon"><i class="fab fa-linkedin"></i></a>
-                <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
-                <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+        </div>
+        
+        <!-- Scroll Indicator -->
+        <div class="scroll-indicator">
+            <span class="scroll-text">Scroll Down</span>
+            <div class="scroll-arrow">
+                <i class="fas fa-chevron-down"></i>
             </div>
         </div>
     </section>
@@ -301,16 +333,55 @@
                         </div>
                     </div>
                 </article>
-                <article class="spotlight-card" data-spotlight-group="certificates" data-spotlight-target="certificate-microsoft-ai">
+                <article class="spotlight-card" data-spotlight-group="certificates" data-spotlight-target="certificate-codex">
                     <div class="spotlight-card-inner">
                         <div class="spotlight-icon gradient-violet">
-                            <i class="fas fa-robot"></i>
+                            <i class="fas fa-trophy"></i>
                         </div>
-                        <h3>Microsoft AI Builder</h3>
-                        <p class="spotlight-meta">Microsoft Learn | 2022</p>
+                        <h3>CODEX 3.0 Winner</h3>
+                        <p class="spotlight-meta">NAMAL University | 2024</p>
                         <div class="spotlight-tags">
-                            <span class="spotlight-tag">Automation</span>
-                            <span class="spotlight-tag">ML Models</span>
+                            <span class="spotlight-tag">AI Video Generation</span>
+                            <span class="spotlight-tag">3rd Position</span>
+                        </div>
+                    </div>
+                </article>
+                <article class="spotlight-card" data-spotlight-group="certificates" data-spotlight-target="certificate-critical-thinking">
+                    <div class="spotlight-card-inner">
+                        <div class="spotlight-icon gradient-blueprint">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <h3>Critical Thinking</h3>
+                        <p class="spotlight-meta">AI Era Course | 2024</p>
+                        <div class="spotlight-tags">
+                            <span class="spotlight-tag">Problem Solving</span>
+                            <span class="spotlight-tag">AI Literacy</span>
+                        </div>
+                    </div>
+                </article>
+                <article class="spotlight-card" data-spotlight-group="certificates" data-spotlight-target="certificate-google-vids">
+                    <div class="spotlight-card-inner">
+                        <div class="spotlight-icon gradient-sunset">
+                            <i class="fab fa-google"></i>
+                        </div>
+                        <h3>Google Video Editing</h3>
+                        <p class="spotlight-meta">Google | 2024</p>
+                        <div class="spotlight-tags">
+                            <span class="spotlight-tag">Video Editing</span>
+                            <span class="spotlight-tag">Google Tools</span>
+                        </div>
+                    </div>
+                </article>
+                <article class="spotlight-card" data-spotlight-group="certificates" data-spotlight-target="certificate-powerbi">
+                    <div class="spotlight-card-inner">
+                        <div class="spotlight-icon gradient-lime">
+                            <i class="fas fa-chart-bar"></i>
+                        </div>
+                        <h3>Microsoft Power BI</h3>
+                        <p class="spotlight-meta">Microsoft | 2024</p>
+                        <div class="spotlight-tags">
+                            <span class="spotlight-tag">Data Analytics</span>
+                            <span class="spotlight-tag">Visualization</span>
                         </div>
                     </div>
                 </article>
@@ -560,7 +631,7 @@
                 </div>
                 <figure class="certificate-proof-card">
                     <div class="certificate-proof-frame">
-                        <img class="certificate-proof-image" src="images/cer1.jpg" alt="Best YouTube Style Video Maker certificate proof" loading="lazy">
+                        <img class="certificate-proof-image" src="images/certificates/Best Yt Style.jpeg" alt="Best YouTube Style Video Maker certificate proof" loading="lazy">
                     </div>
                     <figcaption>
                         <p>Issued 2024 · Air University All Campuses Competition</p>
@@ -600,51 +671,171 @@
                 </div>
                 <figure class="certificate-proof-card">
                     <div class="certificate-proof-frame">
-                        <img class="certificate-proof-image" src="images/certificates/certificate-aws-cloud.svg" alt="AWS Cloud Practitioner certificate proof" loading="lazy">
+                        <img class="certificate-proof-image" src="images/certificates/aws certificate.jpeg" alt="AWS Cloud Practitioner certificate proof" loading="lazy">
                     </div>
                     <figcaption>
-                        <p>Issued August 2023 · Credential ID AWS-CLD-2023-07</p>
-                        <p class="certificate-proof-note">Swap in your official AWS certificate PDF export or badge screenshot when ready.</p>
+                        <p>Issued August 2023 · Amazon Web Services</p>
+                        <p class="certificate-proof-note">Official AWS Cloud Practitioner certification.</p>
                     </figcaption>
                 </figure>
             </div>
         </div>
     </div>
 
-    <div class="spotlight-detail certificate-detail" id="certificate-microsoft-ai" data-spotlight-group="certificates" style="display: none;">
+    <div class="spotlight-detail certificate-detail" id="certificate-codex" data-spotlight-group="certificates" style="display: none;">
         <div class="spotlight-detail-inner">
             <button class="spotlight-back" type="button"><i class="fas fa-arrow-left"></i> Back to Certificates</button>
             <div class="spotlight-detail-header">
-                <span class="detail-chip"><i class="fas fa-certificate"></i> Certificate</span>
-                <h3>Microsoft AI Builder</h3>
-                <p>Explored low-code AI solutions for intelligent automation and insights.</p>
+                <span class="detail-chip"><i class="fas fa-trophy"></i> Achievement</span>
+                <h3>CODEX 3.0 Winner - AI Video Generation</h3>
+                <p>Secured 3rd position in AI Video Generation among top 11 universities of Pakistan.</p>
             </div>
             <div class="spotlight-detail-body">
                 <div class="certificate-detail-info">
                     <div class="detail-panel">
-                    <h4>Highlights</h4>
+                    <h4>Competition Highlights</h4>
                     <ul class="detail-list">
-                        <li>Trained form processing models to digitize paper workflows.</li>
-                        <li>Integrated AI Builder with Power Apps for customer onboarding.</li>
-                        <li>Presented AI ethics primer for community dev circle.</li>
+                        <li>Represented Air University Multan at NAMAL University MianWali.</li>
+                        <li>Competed in AI Video Generation category against top 11 Pakistani universities.</li>
+                        <li>Demonstrated cutting-edge AI tools and creative video production skills.</li>
                     </ul>
                     </div>
                     <div class="detail-panel">
-                    <h4>Focus Areas</h4>
+                    <h4>Skills Demonstrated</h4>
                     <div class="detail-tags">
-                        <span class="detail-tag">Responsible AI</span>
-                        <span class="detail-tag">Power Platform</span>
-                        <span class="detail-tag">Automation</span>
+                        <span class="detail-tag">AI Tools</span>
+                        <span class="detail-tag">Video Generation</span>
+                        <span class="detail-tag">Creative AI</span>
                     </div>
                     </div>
                 </div>
                 <figure class="certificate-proof-card">
                     <div class="certificate-proof-frame">
-                        <img class="certificate-proof-image" src="images/certificates/certificate-microsoft-ai.svg" alt="Microsoft AI Builder certificate proof" loading="lazy">
+                        <img class="certificate-proof-image" src="images/certificates/AI VIDEO WINNER.jpeg" alt="CODEX 3.0 Winner certificate proof" loading="lazy">
                     </div>
                     <figcaption>
-                        <p>Issued December 2022 · Certificate ID AI-2022-114</p>
-                        <p class="certificate-proof-note">Upload your signed certificate snapshot here to reinforce credibility.</p>
+                        <p>Issued 2024 · CODEX 3.0 at NAMAL University</p>
+                        <p class="certificate-proof-note">3rd Position - AI Video Generation Category</p>
+                    </figcaption>
+                </figure>
+            </div>
+        </div>
+    </div>
+
+    <div class="spotlight-detail certificate-detail" id="certificate-critical-thinking" data-spotlight-group="certificates" style="display: none;">
+        <div class="spotlight-detail-inner">
+            <button class="spotlight-back" type="button"><i class="fas fa-arrow-left"></i> Back to Certificates</button>
+            <div class="spotlight-detail-header">
+                <span class="detail-chip"><i class="fas fa-certificate"></i> Certificate</span>
+                <h3>Critical Thinking in the AI Era</h3>
+                <p>Mastered analytical reasoning and decision-making skills for the modern AI-driven world.</p>
+            </div>
+            <div class="spotlight-detail-body">
+                <div class="certificate-detail-info">
+                    <div class="detail-panel">
+                    <h4>Course Highlights</h4>
+                    <ul class="detail-list">
+                        <li>Developed structured problem-solving approaches for complex scenarios.</li>
+                        <li>Learned to evaluate AI outputs critically and identify biases.</li>
+                        <li>Applied logical frameworks to real-world decision making.</li>
+                    </ul>
+                    </div>
+                    <div class="detail-panel">
+                    <h4>Key Competencies</h4>
+                    <div class="detail-tags">
+                        <span class="detail-tag">Analytical Thinking</span>
+                        <span class="detail-tag">AI Ethics</span>
+                        <span class="detail-tag">Decision Making</span>
+                    </div>
+                    </div>
+                </div>
+                <figure class="certificate-proof-card">
+                    <div class="certificate-proof-frame">
+                        <img class="certificate-proof-image" src="images/certificates/Critical Thinking.jpeg" alt="Critical Thinking certificate proof" loading="lazy">
+                    </div>
+                    <figcaption>
+                        <p>Completed 2024 · Critical Thinking Course</p>
+                        <p class="certificate-proof-note">Professional development in analytical reasoning.</p>
+                    </figcaption>
+                </figure>
+            </div>
+        </div>
+    </div>
+
+    <div class="spotlight-detail certificate-detail" id="certificate-google-vids" data-spotlight-group="certificates" style="display: none;">
+        <div class="spotlight-detail-inner">
+            <button class="spotlight-back" type="button"><i class="fas fa-arrow-left"></i> Back to Certificates</button>
+            <div class="spotlight-detail-header">
+                <span class="detail-chip"><i class="fas fa-certificate"></i> Certificate</span>
+                <h3>Google Video Editing</h3>
+                <p>Completed comprehensive video editing training through Google's professional program.</p>
+            </div>
+            <div class="spotlight-detail-body">
+                <div class="certificate-detail-info">
+                    <div class="detail-panel">
+                    <h4>Course Highlights</h4>
+                    <ul class="detail-list">
+                        <li>Mastered professional video editing techniques and workflows.</li>
+                        <li>Learned Google's video creation and editing tools ecosystem.</li>
+                        <li>Applied best practices for content optimization and delivery.</li>
+                    </ul>
+                    </div>
+                    <div class="detail-panel">
+                    <h4>Skills Acquired</h4>
+                    <div class="detail-tags">
+                        <span class="detail-tag">Video Editing</span>
+                        <span class="detail-tag">Google Tools</span>
+                        <span class="detail-tag">Content Creation</span>
+                    </div>
+                    </div>
+                </div>
+                <figure class="certificate-proof-card">
+                    <div class="certificate-proof-frame">
+                        <img class="certificate-proof-image" src="images/certificates/google_vids.jpeg" alt="Google Video Editing certificate proof" loading="lazy">
+                    </div>
+                    <figcaption>
+                        <p>Completed 2024 · Google</p>
+                        <p class="certificate-proof-note">Official Google video editing certification.</p>
+                    </figcaption>
+                </figure>
+            </div>
+        </div>
+    </div>
+
+    <div class="spotlight-detail certificate-detail" id="certificate-powerbi" data-spotlight-group="certificates" style="display: none;">
+        <div class="spotlight-detail-inner">
+            <button class="spotlight-back" type="button"><i class="fas fa-arrow-left"></i> Back to Certificates</button>
+            <div class="spotlight-detail-header">
+                <span class="detail-chip"><i class="fas fa-certificate"></i> Certificate</span>
+                <h3>Microsoft Power BI</h3>
+                <p>Completed Microsoft's official Power BI data analytics and visualization program.</p>
+            </div>
+            <div class="spotlight-detail-body">
+                <div class="certificate-detail-info">
+                    <div class="detail-panel">
+                    <h4>Course Highlights</h4>
+                    <ul class="detail-list">
+                        <li>Built interactive dashboards and reports for business intelligence.</li>
+                        <li>Mastered DAX formulas and data modeling techniques.</li>
+                        <li>Connected multiple data sources for comprehensive analytics.</li>
+                    </ul>
+                    </div>
+                    <div class="detail-panel">
+                    <h4>Skills Acquired</h4>
+                    <div class="detail-tags">
+                        <span class="detail-tag">Data Analytics</span>
+                        <span class="detail-tag">Visualization</span>
+                        <span class="detail-tag">Business Intelligence</span>
+                    </div>
+                    </div>
+                </div>
+                <figure class="certificate-proof-card">
+                    <div class="certificate-proof-frame">
+                        <img class="certificate-proof-image" src="images/certificates/Microsoft Certificate.jpeg" alt="Microsoft Power BI certificate proof" loading="lazy">
+                    </div>
+                    <figcaption>
+                        <p>Completed 2024 · Microsoft</p>
+                        <p class="certificate-proof-note">Official Microsoft Power BI certification.</p>
                     </figcaption>
                 </figure>
             </div>
@@ -1938,10 +2129,10 @@
                     <div class="contact-social">
                         <h3>Follow Me</h3>
                         <div class="social-icons">
-                            <a href="#" class="social-link"><i class="fab fa-github"></i></a>
-                            <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
-                            <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
-                            <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="social-link social-github"><i class="fab fa-github"></i></a>
+                            <a href="#" class="social-link social-linkedin"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" class="social-link social-facebook"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" class="social-link social-instagram"><i class="fab fa-instagram"></i></a>
                         </div>
                     </div>
                 </div>
@@ -2009,8 +2200,10 @@
                 <i class="fas fa-chevron-right"></i>
             </button>
 
-            <!-- Image -->
-            <img class="lightbox-content" id="lightbox-img" alt="">
+            <!-- Image Container - Fixed size -->
+            <div class="lightbox-image-container">
+                <img class="lightbox-content" id="lightbox-img" alt="">
+            </div>
 
             <!-- Control Bar inside card -->
             <div class="lightbox-controls">

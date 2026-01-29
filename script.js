@@ -748,30 +748,32 @@ const closeLightbox = () => {
     currentImageIndex = 0;
 };
 
-// Navigate to specific image (crossfade)
+// Navigate to specific image (smooth crossfade - no resize)
 const showImage = (index, direction = 'next') => {
     if (currentGallery.length === 0) return;
     
     currentImageIndex = (index + currentGallery.length) % currentGallery.length;
     const image = currentGallery[currentImageIndex];
-    lightboxWrapper?.classList.remove(...ORIENTATION_CLASSES);
     
-    // Crossfade out current image
-    lightboxImg.classList.add('fade-out');
+    // Smooth crossfade - only fade the image, don't touch wrapper classes during transition
+    lightboxImg.style.opacity = '0';
     
     setTimeout(() => {
         lightboxImg.src = image.src;
         lightboxImg.alt = image.alt;
         updateLightboxInfo();
         resetZoom();
+        
+        // Wait for image to load then fade in
         if (lightboxImg.complete) {
-            applyOrientationClass();
+            lightboxImg.style.opacity = '1';
+        } else {
+            lightboxImg.onload = () => {
+                lightboxImg.style.opacity = '1';
+            };
         }
-        // Fade back in after source swap
-        lightboxImg.classList.remove('fade-out');
-    }, 150);
+    }, 200);
     
-    // Ensure nav visibility for multi-image galleries
     updateNavigationButtons();
 };
 
