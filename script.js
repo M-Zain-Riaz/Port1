@@ -449,7 +449,10 @@ appCards.forEach(card => {
             // Show selected app detail view
             appDetailView.style.display = 'block';
             
-            // Don't modify scroll
+            // Scroll to top of the detail view
+            requestAnimationFrame(() => {
+                window.scrollTo(0, 0);
+            });
             
             // Initialize slideshows for this app
             initializeSlideshows(appDetailView);
