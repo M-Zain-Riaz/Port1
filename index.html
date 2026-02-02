@@ -54,8 +54,39 @@
                 <li><a href="#education" class="nav-link">Education</a></li>
                 <li><a href="#certificates" class="nav-link">Certificates</a></li>
                 <li><a href="#experience" class="nav-link">Experience</a></li>
-                <li><a href="#team" class="nav-link">My Team</a></li>
-                <li><a href="#portfolio" class="nav-link">Portfolio</a></li>
+                <li class="nav-dropdown">
+                    <a href="#team" class="nav-link">My Team</a>
+                    <div class="dropdown-menu">
+                        <a href="#team" class="dropdown-item" data-team="bilal">Muhammad Bilal Talib</a>
+                        <a href="#team" class="dropdown-item" data-team="maaz">Muhammad Maaz</a>
+                        <a href="#team" class="dropdown-item" data-team="sarib">Syed Muhammad Sarib</a>
+                    </div>
+                </li>
+                <li class="nav-dropdown">
+                    <a href="#portfolio" class="nav-link">Portfolio</a>
+                    <div class="dropdown-menu dropdown-mega">
+                        <div class="dropdown-section">
+                            <span class="dropdown-header">App Development</span>
+                            <a href="#portfolio" class="dropdown-item" data-category="app-development" data-app="smart-iot">Smart IoT Home</a>
+                            <a href="#portfolio" class="dropdown-item" data-category="app-development" data-app="skill-bloom">Skill Bloom</a>
+                            <a href="#portfolio" class="dropdown-item" data-category="app-development" data-app="expense-tracker">Expense Tracker</a>
+                            <a href="#portfolio" class="dropdown-item" data-category="app-development" data-app="food-delivery">Food Delivery App</a>
+                            <a href="#portfolio" class="dropdown-item" data-category="app-development" data-app="ecommerce">E-Commerce Store</a>
+                            <a href="#portfolio" class="dropdown-item" data-category="app-development" data-app="company-management">Company Management</a>
+                        </div>
+                        <div class="dropdown-section">
+                            <span class="dropdown-header">Software Development</span>
+                            <a href="#portfolio" class="dropdown-item" data-category="software-development" data-software="inventory-management">Inventory Management</a>
+                            <a href="#portfolio" class="dropdown-item" data-category="software-development" data-software="shopping-cart">Shopping Cart System</a>
+                        </div>
+                        <div class="dropdown-section">
+                            <a href="#portfolio" class="dropdown-item dropdown-category" data-category="graphics-designing">Graphics Designing</a>
+                            <a href="#portfolio" class="dropdown-item dropdown-category" data-category="logo-design">Logo Design</a>
+                            <a href="#portfolio" class="dropdown-item dropdown-category" data-category="video-editing">Video Editing</a>
+                            <a href="#portfolio" class="dropdown-item dropdown-category" data-category="client-feedback">Client Feedback</a>
+                        </div>
+                    </div>
+                </li>
                 <li><a href="#clients" class="nav-link">Reviews</a></li>
                 <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
@@ -200,6 +231,13 @@
             <div class="services-grid">
                 <div class="service-card">
                     <div class="service-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3>Web Development</h3>
+                    <p>Developing modern, responsive websites that deliver exceptional user experiences.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
                         <i class="fas fa-mobile-alt"></i>
                     </div>
                     <h3>App Development</h3>
@@ -232,13 +270,6 @@
                     </div>
                     <h3>Video Editing</h3>
                     <p>Producing professional video content with creative storytelling and stunning visuals.</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-globe"></i>
-                    </div>
-                    <h3>Web Development</h3>
-                    <p>Developing modern, responsive websites that deliver exceptional user experiences.</p>
                 </div>
             </div>
         </div>
@@ -1064,7 +1095,7 @@
                     </div>
                     <div class="category-content">
                         <h3>App Development</h3>
-                        <p>Explore creative and functional projects built with precision.</p>
+                        <p class="click-indicator"><i class="fas fa-hand-pointer"></i> Click to Explore</p>
                     </div>
                 </div>
                 <div class="category-card" data-category="software-development">
@@ -1074,7 +1105,7 @@
                     </div>
                     <div class="category-content">
                         <h3>Software Development</h3>
-                        <p>Explore creative and functional projects built with precision.</p>
+                        <p class="click-indicator"><i class="fas fa-hand-pointer"></i> Click to Explore</p>
                     </div>
                 </div>
                 <div class="category-card" data-category="logo-design">
@@ -1084,7 +1115,7 @@
                     </div>
                     <div class="category-content">
                         <h3>Logo Design</h3>
-                        <p>Explore creative and functional projects built with precision.</p>
+                        <p class="click-indicator"><i class="fas fa-hand-pointer"></i> Click to Explore</p>
                     </div>
                 </div>
                 <div class="category-card" data-category="client-feedback">
@@ -1094,7 +1125,7 @@
                     </div>
                     <div class="category-content">
                         <h3>Client Feedback</h3>
-                        <p>Explore creative and functional projects built with precision.</p>
+                        <p class="click-indicator"><i class="fas fa-hand-pointer"></i> Click to Explore</p>
                     </div>
                 </div>
                 <div class="category-card" data-category="graphics-designing">
@@ -1104,7 +1135,7 @@
                     </div>
                     <div class="category-content">
                         <h3>Graphics Designing</h3>
-                        <p>Explore creative and functional projects built with precision.</p>
+                        <p class="click-indicator"><i class="fas fa-hand-pointer"></i> Click to Explore</p>
                     </div>
                 </div>
                 <div class="category-card" data-category="video-editing">
@@ -1114,7 +1145,7 @@
                     </div>
                     <div class="category-content">
                         <h3>Video Editing</h3>
-                        <p>Explore creative and functional projects built with precision.</p>
+                        <p class="click-indicator"><i class="fas fa-hand-pointer"></i> Click to Explore</p>
                     </div>
                 </div>
             </div>

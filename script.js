@@ -52,9 +52,59 @@ hamburger?.addEventListener('click', () => {
 
 // Close mobile menu when clicking a link
 navLinks.forEach(link => {
-    link.addEventListener('click', () => {
+    link.addEventListener('click', (e) => {
         hamburger?.classList.remove('active');
         navMenu?.classList.remove('active');
+        
+        // If in portfolio fullscreen mode, exit it first
+        if (document.body.classList.contains('portfolio-fullscreen')) {
+            e.preventDefault();
+            const targetHref = link.getAttribute('href');
+            
+            // Close portfolio fullscreen
+            const categoriesGrid = document.getElementById('categoriesGrid');
+            const categoryDetails = document.querySelectorAll('.category-details');
+            const portfolioHeader = document.querySelector('#portfolio .section-header');
+            const footer = document.querySelector('.footer');
+            
+            // Hide all category details
+            categoryDetails.forEach(detail => {
+                detail.style.display = 'none';
+            });
+            
+            // Show other sections
+            document.querySelectorAll('section:not(#portfolio)').forEach(section => {
+                section.style.display = '';
+            });
+            
+            // Show footer
+            if (footer) footer.style.display = '';
+            
+            // Show portfolio header and categories
+            if (portfolioHeader) portfolioHeader.style.display = '';
+            if (categoriesGrid) categoriesGrid.style.display = '';
+            
+            // Remove fullscreen class
+            document.body.classList.remove('portfolio-fullscreen');
+            
+            // Navigate to target section
+            setTimeout(() => {
+                if (targetHref && targetHref.startsWith('#')) {
+                    const targetSection = document.querySelector(targetHref);
+                    if (targetSection) {
+                        targetSection.scrollIntoView({ behavior: 'smooth' });
+                        
+                        // Update active nav link immediately
+                        navLinks.forEach(navLink => {
+                            navLink.classList.remove('active');
+                            if (navLink.getAttribute('href') === targetHref) {
+                                navLink.classList.add('active');
+                            }
+                        });
+                    }
+                }
+            }, 100);
+        }
     });
 });
 
@@ -97,6 +147,81 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 behavior: 'smooth',
                 block: 'start'
             });
+        }
+    });
+});
+
+// ===========================
+// DROPDOWN NAVIGATION HANDLERS
+// ===========================
+document.querySelectorAll('.dropdown-item').forEach(item => {
+    item.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        const category = item.dataset.category;
+        const app = item.dataset.app;
+        const software = item.dataset.software;
+        const team = item.dataset.team;
+        
+        // Close mobile menu if open
+        hamburger?.classList.remove('active');
+        navMenu?.classList.remove('active');
+        
+        // Handle team member navigation
+        if (team) {
+            const teamSection = document.getElementById('team');
+            if (teamSection) {
+                teamSection.scrollIntoView({ behavior: 'smooth' });
+                // Trigger click on the team member card after scroll
+                setTimeout(() => {
+                    const teamCard = document.querySelector(`[data-spotlight-target="team-${team}"]`);
+                    if (teamCard) {
+                        teamCard.click();
+                    }
+                }, 500);
+            }
+            return;
+        }
+        
+        // Handle portfolio category navigation
+        if (category) {
+            const portfolioSection = document.getElementById('portfolio');
+            if (portfolioSection) {
+                portfolioSection.scrollIntoView({ behavior: 'smooth' });
+                
+                setTimeout(() => {
+                    // Click on the category card
+                    const categoryCard = document.querySelector(`[data-category="${category}"]`);
+                    if (categoryCard) {
+                        categoryCard.click();
+                        
+                        // If there's a specific app or software, click on it after category opens
+                        if (app) {
+                            setTimeout(() => {
+                                const appCard = document.querySelector(`[data-app="${app}"]`);
+                                if (appCard) {
+                                    appCard.click();
+                                }
+                            }, 400);
+                        } else if (software === 'inventory-management') {
+                            setTimeout(() => {
+                                const softwareCard = document.querySelector(`[data-software="${software}"]`);
+                                if (softwareCard) {
+                                    softwareCard.click();
+                                }
+                            }, 400);
+                        } else if (software === 'shopping-cart') {
+                            setTimeout(() => {
+                                const youtubeCard = document.querySelector('[data-youtube]');
+                                if (youtubeCard) {
+                                    youtubeCard.click();
+                                }
+                            }, 400);
+                        }
+                    }
+                }, 500);
+            }
         }
     });
 });
