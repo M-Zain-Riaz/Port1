@@ -1,6 +1,36 @@
 // (Preloader removed) Show content immediately without overlay.
 
 // ===========================
+// ULTRA SMOOTH SCROLL & INTERACTIONS
+// ===========================
+(function() {
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            if (href === '#') return;
+            
+            const target = document.querySelector(href);
+            if (target) {
+                e.preventDefault();
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+    
+    // Add smooth class to body for CSS transitions
+    document.body.classList.add('smooth-loaded');
+    
+    // Request high refresh rate for smoother animations
+    if ('scheduling' in navigator) {
+        navigator.scheduling.isInputPending({ includeContinuous: true });
+    }
+})();
+
+// ===========================
 // THEME TOGGLE
 // ===========================
 const themeToggleInput = document.getElementById('themeToggle');
@@ -791,10 +821,18 @@ categoryCards.forEach(card => {
                 // Add class to body for full-screen mode
                 document.body.classList.add('portfolio-fullscreen');
                 
-                // Scroll to top of the detail view instantly
-                requestAnimationFrame(() => {
-                    window.scrollTo(0, 0);
-                });
+                // Scroll to top of the detail view instantly (unless opened from service card)
+                if (!window.openedFromServiceCard) {
+                    requestAnimationFrame(() => {
+                        window.scrollTo(0, 0);
+                    });
+                } else {
+                    // Opened from service card - scroll to top of detail section
+                    requestAnimationFrame(() => {
+                        detailSection.scrollIntoView({ behavior: 'instant', block: 'start' });
+                    });
+                }
+                window.openedFromServiceCard = false;
                 
                 // Fade in the detail section
                 detailSection.classList.add('fade-in-active');
@@ -1148,7 +1186,7 @@ const collectGalleryImages = (clickedElement) => {
     
     // Try to find parent gallery container (expanded to include all sections)
     const parentGallery = clickedElement.closest(
-        '.app-screenshots-gallery, .logo-gallery, .feedback-gallery, .screenshot-item, .feedback-item, .logo-item, .graphics-grid, .graphic-card, .certificate-detail, .certificate-proof-card'
+        '.app-screenshots-gallery, .logo-gallery, .feedback-gallery, .screenshot-item, .feedback-item, .logo-item, .graphics-grid, .graphic-card, .certificate-detail, .certificate-proof-card, .education-image-card, .education-image-gallery'
     );
     
     if (parentGallery) {
@@ -1158,6 +1196,7 @@ const collectGalleryImages = (clickedElement) => {
     const isFeedbackItem = clickedElement.closest('.feedback-item');
     const isCertificateDetail = clickedElement.closest('.certificate-detail');
     const isCertificateProof = clickedElement.closest('.certificate-proof-card');
+    const isEducationImage = clickedElement.closest('.education-image-card, .education-image-gallery');
         
         let container = parentGallery;
         if (isGraphicCard) container = parentGallery.closest('.graphics-grid') || parentGallery;
@@ -1165,6 +1204,7 @@ const collectGalleryImages = (clickedElement) => {
         if (isLogoItem) container = parentGallery.closest('.logo-gallery') || parentGallery;
         if (isFeedbackItem) container = parentGallery.closest('.feedback-gallery') || parentGallery;
     if (isCertificateProof || isCertificateDetail) container = parentGallery.closest('.certificate-detail') || parentGallery;
+    if (isEducationImage) container = parentGallery;
         
         // Get images from specific gallery type
         const images = container.querySelectorAll('img');
@@ -1214,31 +1254,53 @@ const closeLightbox = () => {
     currentImageIndex = 0;
 };
 
-// Navigate to specific image (smooth crossfade - no resize)
+// Navigate to specific image (slide animation)
 const showImage = (index, direction = 'next') => {
     if (currentGallery.length === 0) return;
     
     currentImageIndex = (index + currentGallery.length) % currentGallery.length;
     const image = currentGallery[currentImageIndex];
     
-    // Smooth crossfade - only fade the image, don't touch wrapper classes during transition
-    lightboxImg.style.opacity = '0';
+    // Preload the next image for instant display
+    const preloadImg = new Image();
+    preloadImg.src = image.src;
+    
+    // Apply slide-out animation to current image
+    if (direction === 'next') {
+        lightboxImg.classList.remove('slide-in-right', 'slide-in-left', 'slide-out-right');
+        lightboxImg.classList.add('slide-out-left');
+    } else {
+        lightboxImg.classList.remove('slide-in-right', 'slide-in-left', 'slide-out-left');
+        lightboxImg.classList.add('slide-out-right');
+    }
+    
+    // Use requestAnimationFrame for smoother animation timing
+    const animationDuration = 300;
     
     setTimeout(() => {
+        // Change image source (preloaded, so instant)
         lightboxImg.src = image.src;
         lightboxImg.alt = image.alt;
         updateLightboxInfo();
         resetZoom();
         
-        // Wait for image to load then fade in
-        if (lightboxImg.complete) {
-            lightboxImg.style.opacity = '1';
-        } else {
-            lightboxImg.onload = () => {
-                lightboxImg.style.opacity = '1';
-            };
-        }
-    }, 200);
+        // Use RAF for smooth class switching
+        requestAnimationFrame(() => {
+            // Remove slide-out class and add slide-in class
+            if (direction === 'next') {
+                lightboxImg.classList.remove('slide-out-left');
+                lightboxImg.classList.add('slide-in-right');
+            } else {
+                lightboxImg.classList.remove('slide-out-right');
+                lightboxImg.classList.add('slide-in-left');
+            }
+        });
+        
+        // Clean up animation classes after animation completes
+        setTimeout(() => {
+            lightboxImg.classList.remove('slide-in-right', 'slide-in-left');
+        }, animationDuration);
+    }, animationDuration);
     
     updateNavigationButtons();
 };
@@ -1321,7 +1383,7 @@ document.addEventListener('click', (e) => {
     
     // Check if image is in a gallery container (expanded to include all sections)
     const isInGallery = clickedImg.closest(
-        '.app-screenshots-gallery, .logo-gallery, .feedback-gallery, .screenshot-item, .feedback-item, .logo-item, .graphics-grid, .graphic-card, .certificate-detail, .certificate-proof-card'
+        '.app-screenshots-gallery, .logo-gallery, .feedback-gallery, .screenshot-item, .feedback-item, .logo-item, .graphics-grid, .graphic-card, .certificate-detail, .certificate-proof-card, .education-image-card, .education-image-gallery'
     );
     
     if (isInGallery) {
@@ -1447,3 +1509,200 @@ if (contactForm) {
             });
     });
 }
+
+// ===========================
+// FEEDBACK IMAGE CAROUSEL
+// ===========================
+// ===========================
+// FEEDBACK GRID (Portfolio Section - images in grid)
+// ===========================
+const initFeedbackGrid = () => {
+    const feedbackGrid = document.querySelector('.feedback-grid');
+    if (!feedbackGrid) return;
+    
+    // Collect all feedback images for lightbox gallery
+    const gridItems = feedbackGrid.querySelectorAll('.feedback-grid-item');
+    const feedbackImages = [];
+    
+    gridItems.forEach((item, index) => {
+        const img = item.querySelector('img');
+        if (img) {
+            feedbackImages.push({
+                src: img.src,
+                alt: img.alt,
+                title: `Client Feedback ${index + 1}`
+            });
+            
+            // Make clickable to open lightbox
+            item.addEventListener('click', () => {
+                openLightbox(
+                    img.src,
+                    img.alt,
+                    `Client Feedback ${index + 1}`,
+                    feedbackImages,
+                    index
+                );
+            });
+        }
+    });
+};
+
+// ===========================
+// REVIEWS MARQUEE (Auto-moving Text Cards with Drag Scroll)
+// ===========================
+const initReviewsMarquee = () => {
+    const container = document.getElementById('reviews-marquee');
+    const track = document.getElementById('reviews-track');
+    
+    if (!container || !track) return;
+    
+    let isDragging = false;
+    let startX;
+    let scrollLeft;
+    let animationPaused = false;
+    
+    // Get position X from event
+    const getPositionX = (e) => {
+        return e.type.includes('mouse') ? e.pageX : e.touches[0].clientX;
+    };
+    
+    // Start dragging
+    const startDrag = (e) => {
+        isDragging = true;
+        container.classList.add('dragging');
+        startX = getPositionX(e) - container.offsetLeft;
+        scrollLeft = container.scrollLeft;
+        
+        // Pause animation when dragging
+        track.style.animationPlayState = 'paused';
+        animationPaused = true;
+    };
+    
+    // While dragging
+    const drag = (e) => {
+        if (!isDragging) return;
+        e.preventDefault();
+        const x = getPositionX(e) - container.offsetLeft;
+        const walk = (x - startX) * 1.5; // Scroll speed multiplier
+        container.scrollLeft = scrollLeft - walk;
+    };
+    
+    // Stop dragging
+    const stopDrag = () => {
+        if (!isDragging) return;
+        isDragging = false;
+        container.classList.remove('dragging');
+        
+        // Resume animation after a short delay
+        setTimeout(() => {
+            if (!container.matches(':hover')) {
+                track.style.animationPlayState = 'running';
+                animationPaused = false;
+            }
+        }, 2000);
+    };
+    
+    // Mouse events for desktop drag
+    container.addEventListener('mousedown', startDrag);
+    container.addEventListener('mousemove', drag);
+    container.addEventListener('mouseup', stopDrag);
+    container.addEventListener('mouseleave', stopDrag);
+    
+    // Touch events for mobile
+    container.addEventListener('touchstart', startDrag, { passive: true });
+    container.addEventListener('touchmove', drag, { passive: false });
+    container.addEventListener('touchend', stopDrag);
+    
+    // Pause on hover (CSS handles this, but also ensure JS control)
+    container.addEventListener('mouseenter', () => {
+        track.style.animationPlayState = 'paused';
+    });
+    
+    container.addEventListener('mouseleave', () => {
+        if (!isDragging) {
+            track.style.animationPlayState = 'running';
+        }
+    });
+};
+
+// Explore Proofs button - opens Client Feedback section
+const initExploreProofsBtn = () => {
+    const exploreBtn = document.getElementById('explore-proofs-btn');
+    if (!exploreBtn) return;
+    
+    exploreBtn.addEventListener('click', () => {
+        // Find and click the client-feedback category
+        const clientFeedbackCard = document.querySelector('[data-category="client-feedback"]');
+        if (clientFeedbackCard) {
+            clientFeedbackCard.click();
+            // Scroll to portfolio section
+            const portfolioSection = document.getElementById('portfolio');
+            if (portfolioSection) {
+                portfolioSection.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+    });
+};
+
+// Service card portfolio links - navigate to specific portfolio category
+const initServicePortfolioBtns = () => {
+    const portfolioBtns = document.querySelectorAll('.service-portfolio-link');
+    
+    portfolioBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const portfolioCategory = btn.getAttribute('data-portfolio');
+            
+            // Skip web-development for now (no screen yet)
+            if (portfolioCategory === 'web-development') {
+                // Scroll to portfolio section only
+                const portfolioSection = document.getElementById('portfolio');
+                if (portfolioSection) {
+                    portfolioSection.scrollIntoView({ behavior: 'smooth' });
+                }
+                return;
+            }
+            
+            // Immediately click the corresponding category card to open screen
+            const categoryCard = document.querySelector(`[data-category="${portfolioCategory}"]`);
+            if (categoryCard) {
+                categoryCard.click();
+            }
+        });
+    });
+};
+
+// Service cards - click to open portfolio category
+const initServiceCards = () => {
+    const serviceCards = document.querySelectorAll('.service-card[data-portfolio]');
+    
+    serviceCards.forEach(card => {
+        card.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            const portfolioCategory = card.getAttribute('data-portfolio');
+            
+            // Skip web-development for now (no screen yet)
+            if (portfolioCategory === 'web-development') {
+                return;
+            }
+            
+            // Set flag to indicate this was opened from service card (no scroll)
+            window.openedFromServiceCard = true;
+            
+            // Immediately open the portfolio category screen
+            const categoryCard = document.querySelector('.category-card[data-category="' + portfolioCategory + '"]');
+            if (categoryCard) {
+                categoryCard.click();
+            }
+        });
+    });
+};
+
+// Run on DOM ready
+document.addEventListener('DOMContentLoaded', () => {
+    initFeedbackGrid();
+    initReviewsMarquee();
+    initExploreProofsBtn();
+    initServiceCards();
+});

@@ -253,42 +253,42 @@
                 <p class="section-subtitle">Comprehensive solutions tailored to your needs</p>
             </div>
             <div class="services-grid">
-                <div class="service-card">
+                <div class="service-card" data-portfolio="web-development">
                     <div class="service-icon">
                         <i class="fas fa-globe"></i>
                     </div>
                     <h3>Web Development</h3>
                     <p>Developing modern, responsive websites that deliver exceptional user experiences.</p>
                 </div>
-                <div class="service-card">
+                <div class="service-card" data-portfolio="app-development">
                     <div class="service-icon">
                         <i class="fas fa-mobile-alt"></i>
                     </div>
                     <h3>App Development</h3>
                     <p>Creating innovative mobile applications with seamless user experiences and robust functionality.</p>
                 </div>
-                <div class="service-card">
+                <div class="service-card" data-portfolio="software-development">
                     <div class="service-icon">
                         <i class="fas fa-laptop-code"></i>
                     </div>
                     <h3>Software Development</h3>
                     <p>Building scalable software solutions that drive business growth and efficiency.</p>
                 </div>
-                <div class="service-card">
+                <div class="service-card" data-portfolio="graphics-designing">
                     <div class="service-icon">
                         <i class="fas fa-palette"></i>
                     </div>
                     <h3>Graphics Designing</h3>
                     <p>Designing eye-catching visuals that capture attention and communicate your brand message.</p>
                 </div>
-                <div class="service-card">
+                <div class="service-card" data-portfolio="logo-design">
                     <div class="service-icon">
                         <i class="fas fa-pen-nib"></i>
                     </div>
                     <h3>Logo Design</h3>
                     <p>Crafting unique and memorable logos that define your brand identity.</p>
                 </div>
-                <div class="service-card">
+                <div class="service-card" data-portfolio="video-editing">
                     <div class="service-icon">
                         <i class="fas fa-video"></i>
                     </div>
@@ -580,7 +580,7 @@
                 <h3>BS Computer Science</h3>
                 <p>COMSATS University Islamabad · 2021 – Present</p>
             </div>
-            <div class="spotlight-detail-body">
+            <div class="spotlight-detail-body education-detail-layout">
                 <div class="detail-panel">
                     <h4>Highlights</h4>
                     <ul class="detail-list">
@@ -597,6 +597,26 @@
                         <span class="detail-tag">Human-Centered Design</span>
                     </div>
                 </div>
+                <div class="education-image-gallery">
+                    <img src="images/air.jpeg" alt="AIR University Multan">
+                    <img src="images/air2.webp" alt="AIR University Campus">
+                    <img src="images/air3.jpeg" alt="AIR University Building">
+                    <img src="images/air4.png" alt="AIR University Academic Block">
+                    <img src="images/air5.png" alt="AIR University Campus Life">
+                    <img src="images/air6.png" alt="AIR University Academic Block">
+                    <img src="images/air7.png" alt="AIR University Library">
+                    <img src="images/air8.png" alt="AIR University Labs">
+                    <img src="images/air9.png" alt="AIR University Auditorium">
+                    <img src="images/air10.png" alt="AIR University Sports Complex">
+                    <img src="images/air11.png" alt="AIR University Cafeteria">
+                    <img src="images/air12.png" alt="AIR University Study Areas">
+                    <img src="images/air13.png" alt="AIR University Computer Labs">
+                    <img src="images/air14.png" alt="AIR University Innovation Center">
+                    <img src="images/air15.png" alt="AIR University Tech Hub">
+                    <img src="images/air16.png" alt="AIR University Research Center">
+                    <img src="images/air17.png" alt="AIR University Main Entrance">
+                    <img src="images/air18.png" alt="AIR University Campus Overview">
+                </div>
             </div>
         </div>
     </div>
@@ -610,7 +630,7 @@
                 <h3>Intermediate Pre-Engineering</h3>
                 <p>Punjab Group of Colleges · 2019 – 2021</p>
             </div>
-            <div class="spotlight-detail-body">
+            <div class="spotlight-detail-body education-detail-layout">
                 <div class="detail-panel">
                     <h4>Highlights</h4>
                     <ul class="detail-list">
@@ -626,6 +646,9 @@
                         <span class="detail-tag">Experiment Design</span>
                         <span class="detail-tag">Leadership</span>
                     </div>
+                </div>
+                <div class="education-image-card">
+                    <img src="images/clg.jpeg" alt="Admire College">
                 </div>
             </div>
         </div>
@@ -1192,7 +1215,7 @@
             <!-- Category Details Views -->
             <!-- App Development Projects -->
             <div class="category-details" id="app-development" style="display: none;">
-                <button class="back-button"><i class="fas fa-arrow-left"></i> Back to Categories</button>
+                <button class="back-button"><i class="fas fa-arrow-left"></i> Back to Main</button>
                 <h2 class="category-detail-title">App Development Projects</h2>
                 
                 <!-- App Grid View -->
@@ -1632,7 +1655,7 @@
 
             <!-- Software Development Projects -->
             <div class="category-details" id="software-development" style="display: none;">
-                <button class="back-button"><i class="fas fa-arrow-left"></i> Back to Categories</button>
+                <button class="back-button"><i class="fas fa-arrow-left"></i> Back to Main</button>
                 <h2 class="category-detail-title">Software Development Projects</h2>
                 
                 <!-- Software Grid View -->
@@ -1667,36 +1690,69 @@
                 <!-- Software Detail View (Only for Inventory Management) -->
                 <div class="software-detail-view" id="inventory-management" style="display: none;">
                     <button class="back-to-software-button"><i class="fas fa-arrow-left"></i> Back to Projects</button>
-                    <div class="project-card">
-                        <div class="slideshow-container">
-                            <div class="slide fade">
+                    
+                    <div class="app-detail-container">
+                        <div class="app-detail-header">
+                            <h2 class="app-detail-title">Inventory Management System</h2>
+                            <p class="app-detail-tagline">Complete Stock & Order Management Solution</p>
+                        </div>
+
+                        <!-- Screenshots Gallery -->
+                        <div class="app-screenshots-gallery software-screenshots">
+                            <div class="screenshot-item software-screenshot">
                                 <img src="images/IM1.png" alt="Inventory Management 1">
                             </div>
-                            <div class="slide fade">
+                            <div class="screenshot-item software-screenshot">
                                 <img src="images/IM2.png" alt="Inventory Management 2">
                             </div>
-                            <div class="slide fade">
+                            <div class="screenshot-item software-screenshot">
                                 <img src="images/IM3.png" alt="Inventory Management 3">
                             </div>
-                            <div class="slide fade">
+                            <div class="screenshot-item software-screenshot">
                                 <img src="images/IM4.png" alt="Inventory Management 4">
                             </div>
-                            <div class="slide fade">
+                            <div class="screenshot-item software-screenshot">
                                 <img src="images/IM5.png" alt="Inventory Management 5">
                             </div>
-                            <a class="prev">&#10094;</a>
-                            <a class="next">&#10095;</a>
                         </div>
-                        <div class="project-description">
-                            <h3>Inventory Management System</h3>
-                            <p>A robust inventory management solution for tracking stock levels, managing orders, and generating
-                            detailed reports. Features real-time updates and intuitive dashboard.</p>
-                            <div class="video-container">
-                                <iframe src="https://www.youtube.com/embed/985LDfazV0g" 
-                                        frameborder="0" 
-                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                        allowfullscreen>
-                                </iframe>
+
+                        <!-- Project Information -->
+                        <div class="app-detail-info">
+                            <div class="app-info-section">
+                                <h3><i class="fas fa-info-circle"></i> About</h3>
+                                <p>A robust inventory management solution for tracking stock levels, managing orders, and generating detailed reports. Features real-time updates and intuitive dashboard for seamless business operations.</p>
+                            </div>
+
+                            <div class="app-info-section">
+                                <h3><i class="fas fa-code"></i> Technologies</h3>
+                                <div class="tech-tags">
+                                    <span class="tech-tag">C#</span>
+                                    <span class="tech-tag">.NET</span>
+                                    <span class="tech-tag">SQL Server</span>
+                                    <span class="tech-tag">Windows Forms</span>
+                                </div>
+                            </div>
+
+                            <div class="app-info-section">
+                                <h3><i class="fas fa-star"></i> Key Features</h3>
+                                <ul class="features-list">
+                                    <li><i class="fas fa-check-circle"></i> Real-time Stock Tracking</li>
+                                    <li><i class="fas fa-check-circle"></i> Order Management</li>
+                                    <li><i class="fas fa-check-circle"></i> Detailed Reports & Analytics</li>
+                                    <li><i class="fas fa-check-circle"></i> Intuitive Dashboard</li>
+                                    <li><i class="fas fa-check-circle"></i> Multi-user Support</li>
+                                </ul>
+                            </div>
+
+                            <div class="app-info-section">
+                                <h3><i class="fas fa-play-circle"></i> Demo Video</h3>
+                                <div class="video-container" style="border-radius: 10px; overflow: hidden; margin-top: 10px;">
+                                    <iframe src="https://www.youtube.com/embed/985LDfazV0g" 
+                                            frameborder="0" 
+                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                            allowfullscreen>
+                                    </iframe>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -1705,7 +1761,7 @@
 
             <!-- Graphics Designing Projects -->
             <div class="category-details" id="graphics-designing" style="display: none;">
-                <button class="back-button"><i class="fas fa-arrow-left"></i> Back to Categories</button>
+                <button class="back-button"><i class="fas fa-arrow-left"></i> Back to Main</button>
                 <h2 class="category-detail-title">Graphics Designing Projects</h2>
                 
                 <div class="graphics-grid">
@@ -1837,7 +1893,7 @@
 
             <!-- Logo Design Projects -->
             <div class="category-details" id="logo-design" style="display: none;">
-                <button class="back-button"><i class="fas fa-arrow-left"></i> Back to Categories</button>
+                <button class="back-button"><i class="fas fa-arrow-left"></i> Back to Main</button>
                 <h2 class="category-detail-title">Logo Design Projects</h2>
                 
                 <div class="logo-gallery">
@@ -1882,210 +1938,57 @@
 
             <!-- Client Feedback View -->
             <div class="category-details" id="client-feedback" style="display: none;">
-                <button class="back-button"><i class="fas fa-arrow-left"></i> Back to Categories</button>
+                <button class="back-button"><i class="fas fa-arrow-left"></i> Back to Main</button>
                 <h2 class="category-detail-title">Client Feedback</h2>
                 
-                <!-- Feedback as Review Cards (not grid) -->
-                <div class="feedback-reviews-list">
-                    <div class="feedback-review-card">
-                        <div class="review-header">
-                            <img src="images/c1.jpeg" alt="Client 1" class="review-avatar">
-                            <div class="review-info">
-                                <h4>Satisfied Client</h4>
-                                <div class="review-stars">⭐⭐⭐⭐⭐</div>
-                            </div>
-                        </div>
-                        <p class="review-text">"Exceptional work! Muhammad delivered beyond our expectations with incredible attention to detail and professionalism."</p>
-                    </div>
-                    <div class="feedback-review-card">
-                        <div class="review-header">
-                            <img src="images/c2.jpeg" alt="Client 2" class="review-avatar">
-                            <div class="review-info">
-                                <h4>Happy Client</h4>
-                                <div class="review-stars">⭐⭐⭐⭐⭐</div>
-                            </div>
-                        </div>
-                        <p class="review-text">"Outstanding quality and timely delivery. The project exceeded all our requirements. Highly recommended!"</p>
-                    </div>
-                    <div class="feedback-review-card">
-                        <div class="review-header">
-                            <img src="images/c3.jpeg" alt="Client 3" class="review-avatar">
-                            <div class="review-info">
-                                <h4>Repeat Client</h4>
-                                <div class="review-stars">⭐⭐⭐⭐⭐</div>
-                            </div>
-                        </div>
-                        <p class="review-text">"Great communication and superb execution. Will definitely work together again on future projects."</p>
-                    </div>
-                    <div class="feedback-review-card">
-                        <div class="review-header">
-                            <img src="images/c4.jpeg" alt="Client 4" class="review-avatar">
-                            <div class="review-info">
-                                <h4>Business Partner</h4>
-                                <div class="review-stars">⭐⭐⭐⭐⭐</div>
-                            </div>
-                        </div>
-                        <p class="review-text">"Creative solutions and professional approach. The results speak for themselves - absolutely brilliant!"</p>
-                    </div>
-                    <div class="feedback-review-card">
-                        <div class="review-header">
-                            <img src="images/c5.jpeg" alt="Client 5" class="review-avatar">
-                            <div class="review-info">
-                                <h4>Corporate Client</h4>
-                                <div class="review-stars">⭐⭐⭐⭐⭐</div>
-                            </div>
-                        </div>
-                        <p class="review-text">"Amazing talent and dedication. Muhammad transformed our vision into reality with perfection."</p>
-                    </div>
-                </div>
-
-                <!-- Feedback Slideshow Section (below grid) -->
-                <div class="feedback-slideshow-section">
-                    <h3 class="slideshow-title">Trusted Clients Over The Social Media</h3>
-                    <div class="testimonials-slider-container">
-                        <div class="testimonials-slider-track">
-                            <div class="testimonial-card">
-                                <img src="images/c1.jpeg" alt="Client 1">
-                                <div class="testimonial-content">
-                                    <p class="testimonial-text">"Exceptional work! Muhammad delivered beyond our expectations with incredible attention to detail and professionalism."</p>
-                                    <h4 class="client-name">Client Review</h4>
-                                    <div class="rating">⭐⭐⭐⭐⭐</div>
-                                </div>
-                            </div>
-                            <div class="testimonial-card">
-                                <img src="images/c2.jpeg" alt="Client 2">
-                                <div class="testimonial-content">
-                                    <p class="testimonial-text">"Outstanding quality and timely delivery. The project exceeded all our requirements. Highly recommended!"</p>
-                                    <h4 class="client-name">Client Review</h4>
-                                    <div class="rating">⭐⭐⭐⭐⭐</div>
-                                </div>
-                            </div>
-                            <div class="testimonial-card">
-                                <img src="images/c3.jpeg" alt="Client 3">
-                                <div class="testimonial-content">
-                                    <p class="testimonial-text">"Great communication and superb execution. Will definitely work together again on future projects."</p>
-                                    <h4 class="client-name">Client Review</h4>
-                                    <div class="rating">⭐⭐⭐⭐⭐</div>
-                                </div>
-                            </div>
-                            <div class="testimonial-card">
-                                <img src="images/c4.jpeg" alt="Client 4">
-                                <div class="testimonial-content">
-                                    <p class="testimonial-text">"Creative solutions and professional approach. The results speak for themselves - absolutely brilliant!"</p>
-                                    <h4 class="client-name">Client Review</h4>
-                                    <div class="rating">⭐⭐⭐⭐⭐</div>
-                                </div>
-                            </div>
-                            <div class="testimonial-card">
-                                <img src="images/c5.jpeg" alt="Client 5">
-                                <div class="testimonial-content">
-                                    <p class="testimonial-text">"Amazing talent and dedication. Muhammad transformed our vision into reality with perfection."</p>
-                                    <h4 class="client-name">Client Review</h4>
-                                    <div class="rating">⭐⭐⭐⭐⭐</div>
-                                </div>
-                            </div>
-                            <!-- Duplicate cards for seamless loop -->
-                            <div class="testimonial-card">
-                                <img src="images/c1.jpeg" alt="Client 1">
-                                <div class="testimonial-content">
-                                    <p class="testimonial-text">"Exceptional work! Muhammad delivered beyond our expectations with incredible attention to detail and professionalism."</p>
-                                    <h4 class="client-name">Client Review</h4>
-                                    <div class="rating">⭐⭐⭐⭐⭐</div>
-                                </div>
-                            </div>
-                            <div class="testimonial-card">
-                                <img src="images/c2.jpeg" alt="Client 2">
-                                <div class="testimonial-content">
-                                    <p class="testimonial-text">"Outstanding quality and timely delivery. The project exceeded all our requirements. Highly recommended!"</p>
-                                    <h4 class="client-name">Client Review</h4>
-                                    <div class="rating">⭐⭐⭐⭐⭐</div>
-                                </div>
-                            </div>
-                            <div class="testimonial-card">
-                                <img src="images/c3.jpeg" alt="Client 3">
-                                <div class="testimonial-content">
-                                    <p class="testimonial-text">"Great communication and superb execution. Will definitely work together again on future projects."</p>
-                                    <h4 class="client-name">Client Review</h4>
-                                    <div class="rating">⭐⭐⭐⭐⭐</div>
-                                </div>
+                <!-- Feedback Images Grid -->
+                <div class="feedback-grid">
+                    <div class="feedback-grid-item" data-lightbox="feedback">
+                        <div class="feedback-image-wrapper">
+                            <img src="images/c1.jpeg" alt="Client Feedback 1">
+                            <div class="feedback-overlay">
+                                <i class="fas fa-search-plus"></i>
                             </div>
                         </div>
                     </div>
-                </div>
-
-                <!-- Client Accounts Spotlight -->
-                <div class="client-accounts-section fade-in">
-                    <div class="client-accounts-header">
-                        <h3>Connect With Our Happy Clients</h3>
-                        <p>Explore their journeys and see how our collaborations elevated their digital presence.</p>
+                    <div class="feedback-grid-item" data-lightbox="feedback">
+                        <div class="feedback-image-wrapper">
+                            <img src="images/c2.jpeg" alt="Client Feedback 2">
+                            <div class="feedback-overlay">
+                                <i class="fas fa-search-plus"></i>
+                            </div>
+                        </div>
                     </div>
-                    <div class="client-accounts-grid">
-                        <article class="client-account-card">
-                            <div class="client-avatar">
-                                <img src="images/c1.jpeg" alt="Sarah Khan - Lifestyle Influencer">
-                                <span class="client-badge">Premium Client</span>
+                    <div class="feedback-grid-item" data-lightbox="feedback">
+                        <div class="feedback-image-wrapper">
+                            <img src="images/c3.jpeg" alt="Client Feedback 3">
+                            <div class="feedback-overlay">
+                                <i class="fas fa-search-plus"></i>
                             </div>
-                            <div class="client-account-info">
-                                <h4 class="client-account-name">Sarah Khan</h4>
-                                <p class="client-account-role">Lifestyle Influencer • Karachi, PK</p>
-                                <p class="client-account-highlight">Reaching 150K+ viewers weekly with tailored storytelling visuals.</p>
+                        </div>
+                    </div>
+                    <div class="feedback-grid-item" data-lightbox="feedback">
+                        <div class="feedback-image-wrapper">
+                            <img src="images/c4.jpeg" alt="Client Feedback 4">
+                            <div class="feedback-overlay">
+                                <i class="fas fa-search-plus"></i>
                             </div>
-                            <div class="client-social-links">
-                                <a class="social-link youtube" href="https://www.youtube.com/@SarahKhanOfficial" target="_blank" rel="noopener" aria-label="Visit Sarah Khan on YouTube">
-                                    <i class="fab fa-youtube"></i>
-                                </a>
-                                <a class="social-link tiktok" href="https://www.tiktok.com/@SarahKhanOfficial" target="_blank" rel="noopener" aria-label="Visit Sarah Khan on TikTok">
-                                    <i class="fab fa-tiktok"></i>
-                                </a>
+                        </div>
+                    </div>
+                    <div class="feedback-grid-item" data-lightbox="feedback">
+                        <div class="feedback-image-wrapper">
+                            <img src="images/c5.jpeg" alt="Client Feedback 5">
+                            <div class="feedback-overlay">
+                                <i class="fas fa-search-plus"></i>
                             </div>
-                        </article>
-
-                        <article class="client-account-card">
-                            <div class="client-avatar">
-                                <img src="images/c3.jpeg" alt="Ahmed Raza - Fitness Coach">
-                                <span class="client-badge">Featured</span>
-                            </div>
-                            <div class="client-account-info">
-                                <h4 class="client-account-name">Ahmed Raza</h4>
-                                <p class="client-account-role">Fitness Coach • Dubai, UAE</p>
-                                <p class="client-account-highlight">Scaled to 80K+ subscribers with performance-driven video branding.</p>
-                            </div>
-                            <div class="client-social-links">
-                                <a class="social-link youtube" href="https://www.youtube.com/@AhmedFitLab" target="_blank" rel="noopener" aria-label="Visit Ahmed Raza on YouTube">
-                                    <i class="fab fa-youtube"></i>
-                                </a>
-                                <a class="social-link tiktok" href="https://www.tiktok.com/@AhmedFitLab" target="_blank" rel="noopener" aria-label="Visit Ahmed Raza on TikTok">
-                                    <i class="fab fa-tiktok"></i>
-                                </a>
-                            </div>
-                        </article>
-
-                        <article class="client-account-card">
-                            <div class="client-avatar">
-                                <img src="images/c5.jpeg" alt="Ayesha Malik - Tech Reviewer">
-                                <span class="client-badge">Long-term Partner</span>
-                            </div>
-                            <div class="client-account-info">
-                                <h4 class="client-account-name">Ayesha Malik</h4>
-                                <p class="client-account-role">Tech Reviewer • Lahore, PK</p>
-                                <p class="client-account-highlight">Boosted engagement by 3x with cohesive branding across platforms.</p>
-                            </div>
-                            <div class="client-social-links">
-                                <a class="social-link youtube" href="https://www.youtube.com/@AyeshaTechTalks" target="_blank" rel="noopener" aria-label="Visit Ayesha Malik on YouTube">
-                                    <i class="fab fa-youtube"></i>
-                                </a>
-                                <a class="social-link tiktok" href="https://www.tiktok.com/@AyeshaTechTalks" target="_blank" rel="noopener" aria-label="Visit Ayesha Malik on TikTok">
-                                    <i class="fab fa-tiktok"></i>
-                                </a>
-                            </div>
-                        </article>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- Video Editing Projects -->
             <div class="category-details" id="video-editing" style="display: none;">
-                <button class="back-button"><i class="fas fa-arrow-left"></i> Back to Categories</button>
+                <button class="back-button"><i class="fas fa-arrow-left"></i> Back to Main</button>
                 <h2 class="category-detail-title">Video Editing Projects</h2>
                 
                 <div class="video-showcase-grid">
@@ -2117,82 +2020,79 @@
                 <p class="section-subtitle">What our clients say about working with us</p>
             </div>
             
-            <!-- Auto-scrolling testimonials carousel -->
-            <div class="reviews-carousel-container">
-                <div class="reviews-carousel-track">
-                    <!-- First set of reviews -->
-                    <div class="review-slide">
-                        <div class="review-slide-inner">
-                            <img src="images/c1.jpeg" alt="Client Review" class="review-slide-img">
-                            <div class="review-slide-content">
-                                <div class="review-slide-stars">⭐⭐⭐⭐⭐</div>
-                                <p class="review-slide-text">"Exceptional work! Muhammad delivered beyond our expectations with incredible attention to detail and professionalism."</p>
-                                <h4 class="review-slide-name">Satisfied Client</h4>
-                            </div>
-                        </div>
+            <!-- Auto-moving text-only reviews - draggable/scrollable -->
+            <div class="reviews-marquee-container" id="reviews-marquee">
+                <div class="reviews-marquee-track" id="reviews-track">
+                    <!-- Text-only review cards -->
+                    <div class="review-card-text">
+                        <div class="review-quote"><i class="fas fa-quote-left"></i></div>
+                        <div class="review-stars">⭐⭐⭐⭐⭐</div>
+                        <p class="review-text">"Exceptional work! Muhammad delivered beyond our expectations with incredible attention to detail and professionalism."</p>
+                        <h4 class="review-author">— Satisfied Client</h4>
                     </div>
-                    <div class="review-slide">
-                        <div class="review-slide-inner">
-                            <img src="images/c2.jpeg" alt="Client Review" class="review-slide-img">
-                            <div class="review-slide-content">
-                                <div class="review-slide-stars">⭐⭐⭐⭐⭐</div>
-                                <p class="review-slide-text">"Outstanding quality and timely delivery. The project exceeded all our requirements. Highly recommended!"</p>
-                                <h4 class="review-slide-name">Happy Client</h4>
-                            </div>
-                        </div>
+                    <div class="review-card-text">
+                        <div class="review-quote"><i class="fas fa-quote-left"></i></div>
+                        <div class="review-stars">⭐⭐⭐⭐⭐</div>
+                        <p class="review-text">"Outstanding quality and timely delivery. The project exceeded all our requirements. Highly recommended!"</p>
+                        <h4 class="review-author">— Happy Client</h4>
                     </div>
-                    <div class="review-slide">
-                        <div class="review-slide-inner">
-                            <img src="images/c3.jpeg" alt="Client Review" class="review-slide-img">
-                            <div class="review-slide-content">
-                                <div class="review-slide-stars">⭐⭐⭐⭐⭐</div>
-                                <p class="review-slide-text">"Great communication and superb execution. Will definitely work together again on future projects."</p>
-                                <h4 class="review-slide-name">Repeat Client</h4>
-                            </div>
-                        </div>
+                    <div class="review-card-text">
+                        <div class="review-quote"><i class="fas fa-quote-left"></i></div>
+                        <div class="review-stars">⭐⭐⭐⭐⭐</div>
+                        <p class="review-text">"Great communication and superb execution. Will definitely work together again on future projects."</p>
+                        <h4 class="review-author">— Repeat Client</h4>
                     </div>
-                    <div class="review-slide">
-                        <div class="review-slide-inner">
-                            <img src="images/c4.jpeg" alt="Client Review" class="review-slide-img">
-                            <div class="review-slide-content">
-                                <div class="review-slide-stars">⭐⭐⭐⭐⭐</div>
-                                <p class="review-slide-text">"Creative solutions and professional approach. The results speak for themselves - absolutely brilliant!"</p>
-                                <h4 class="review-slide-name">Business Partner</h4>
-                            </div>
-                        </div>
+                    <div class="review-card-text">
+                        <div class="review-quote"><i class="fas fa-quote-left"></i></div>
+                        <div class="review-stars">⭐⭐⭐⭐⭐</div>
+                        <p class="review-text">"Creative solutions and professional approach. The results speak for themselves - absolutely brilliant!"</p>
+                        <h4 class="review-author">— Business Partner</h4>
                     </div>
-                    <div class="review-slide">
-                        <div class="review-slide-inner">
-                            <img src="images/c5.jpeg" alt="Client Review" class="review-slide-img">
-                            <div class="review-slide-content">
-                                <div class="review-slide-stars">⭐⭐⭐⭐⭐</div>
-                                <p class="review-slide-text">"Amazing talent and dedication. Muhammad transformed our vision into reality with perfection."</p>
-                                <h4 class="review-slide-name">Corporate Client</h4>
-                            </div>
-                        </div>
+                    <div class="review-card-text">
+                        <div class="review-quote"><i class="fas fa-quote-left"></i></div>
+                        <div class="review-stars">⭐⭐⭐⭐⭐</div>
+                        <p class="review-text">"Amazing talent and dedication. Muhammad transformed our vision into reality with perfection."</p>
+                        <h4 class="review-author">— Corporate Client</h4>
                     </div>
-                    <!-- Duplicate for seamless loop -->
-                    <div class="review-slide">
-                        <div class="review-slide-inner">
-                            <img src="images/c1.jpeg" alt="Client Review" class="review-slide-img">
-                            <div class="review-slide-content">
-                                <div class="review-slide-stars">⭐⭐⭐⭐⭐</div>
-                                <p class="review-slide-text">"Exceptional work! Muhammad delivered beyond our expectations with incredible attention to detail and professionalism."</p>
-                                <h4 class="review-slide-name">Satisfied Client</h4>
-                            </div>
-                        </div>
+                    <!-- Duplicates for seamless loop -->
+                    <div class="review-card-text">
+                        <div class="review-quote"><i class="fas fa-quote-left"></i></div>
+                        <div class="review-stars">⭐⭐⭐⭐⭐</div>
+                        <p class="review-text">"Exceptional work! Muhammad delivered beyond our expectations with incredible attention to detail and professionalism."</p>
+                        <h4 class="review-author">— Satisfied Client</h4>
                     </div>
-                    <div class="review-slide">
-                        <div class="review-slide-inner">
-                            <img src="images/c2.jpeg" alt="Client Review" class="review-slide-img">
-                            <div class="review-slide-content">
-                                <div class="review-slide-stars">⭐⭐⭐⭐⭐</div>
-                                <p class="review-slide-text">"Outstanding quality and timely delivery. The project exceeded all our requirements. Highly recommended!"</p>
-                                <h4 class="review-slide-name">Happy Client</h4>
-                            </div>
-                        </div>
+                    <div class="review-card-text">
+                        <div class="review-quote"><i class="fas fa-quote-left"></i></div>
+                        <div class="review-stars">⭐⭐⭐⭐⭐</div>
+                        <p class="review-text">"Outstanding quality and timely delivery. The project exceeded all our requirements. Highly recommended!"</p>
+                        <h4 class="review-author">— Happy Client</h4>
+                    </div>
+                    <div class="review-card-text">
+                        <div class="review-quote"><i class="fas fa-quote-left"></i></div>
+                        <div class="review-stars">⭐⭐⭐⭐⭐</div>
+                        <p class="review-text">"Great communication and superb execution. Will definitely work together again on future projects."</p>
+                        <h4 class="review-author">— Repeat Client</h4>
+                    </div>
+                    <div class="review-card-text">
+                        <div class="review-quote"><i class="fas fa-quote-left"></i></div>
+                        <div class="review-stars">⭐⭐⭐⭐⭐</div>
+                        <p class="review-text">"Creative solutions and professional approach. The results speak for themselves - absolutely brilliant!"</p>
+                        <h4 class="review-author">— Business Partner</h4>
+                    </div>
+                    <div class="review-card-text">
+                        <div class="review-quote"><i class="fas fa-quote-left"></i></div>
+                        <div class="review-stars">⭐⭐⭐⭐⭐</div>
+                        <p class="review-text">"Amazing talent and dedication. Muhammad transformed our vision into reality with perfection."</p>
+                        <h4 class="review-author">— Corporate Client</h4>
                     </div>
                 </div>
+            </div>
+            
+            <!-- Explore Proofs Button -->
+            <div class="explore-proofs-wrapper">
+                <button class="explore-proofs-btn" id="explore-proofs-btn">
+                    <i class="fas fa-images"></i> Explore Proofs
+                </button>
             </div>
         </div>
     </section>
