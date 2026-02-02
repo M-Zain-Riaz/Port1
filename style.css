@@ -419,12 +419,21 @@ body {
 .dropdown-header {
     display: block;
     color: var(--primary-cyan);
-    font-size: 0.65rem;
+    font-size: 0.7rem;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.5px;
     padding: 4px 10px;
     margin-bottom: 2px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    border-radius: 4px;
+}
+
+.dropdown-header:hover {
+    background: rgba(59, 130, 246, 0.15);
+    color: var(--text-white);
 }
 
 .dropdown-item {
@@ -1575,6 +1584,32 @@ body.light-theme .team-card-cta-btn:hover {
     border-color: rgba(59, 130, 246, 0.25);
 }
 
+.spotlight-close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(10px);
+    color: var(--text-gray);
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+}
+
+.spotlight-close:hover {
+    color: var(--text-white);
+    background: rgba(239, 68, 68, 0.2);
+    border-color: rgba(239, 68, 68, 0.4);
+}
+
 .spotlight-detail-header {
     margin-top: 16px;
     margin-bottom: 20px;
@@ -2126,6 +2161,17 @@ body.light-theme .spotlight-back:hover {
     background: rgba(59, 130, 246, 0.2);
 }
 
+body.light-theme .spotlight-close {
+    border-color: rgba(10, 16, 51, 0.25);
+    background: rgba(255, 255, 255, 0.75);
+    color: #0a1033;
+}
+
+body.light-theme .spotlight-close:hover {
+    background: rgba(239, 68, 68, 0.2);
+    border-color: rgba(239, 68, 68, 0.4);
+}
+
 body.light-theme .detail-panel {
     background: rgba(255, 255, 255, 0.82);
     border-color: rgba(10, 16, 51, 0.08);
@@ -2623,6 +2669,39 @@ body.light-theme.portfolio-fullscreen .nav-link.active {
     font-size: 11px;
 }
 
+/* App Card Click Indicator */
+.app-card::after {
+    content: '\f054';
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    position: absolute;
+    top: 50%;
+    right: 12px;
+    transform: translateY(-50%);
+    width: 24px;
+    height: 24px;
+    background: transparent;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-light);
+    font-size: 10px;
+    opacity: 0.6;
+    animation: pulseArrow 2s ease-in-out infinite;
+    transition: all 0.3s ease;
+}
+
+.app-card:hover::after {
+    opacity: 1;
+    transform: translateY(-50%) translateX(3px);
+}
+
+@keyframes pulseArrow {
+    0%, 100% { opacity: 0.5; transform: translateY(-50%); }
+    50% { opacity: 0.8; transform: translateY(-50%) translateX(3px); }
+}
+
 /* App Detail View */
 .app-detail-view {
     animation: slideIn 0.5s ease;
@@ -2692,6 +2771,16 @@ body.light-theme.portfolio-fullscreen .nav-link.active {
     scroll-behavior: smooth;
     scrollbar-width: thin;
     scrollbar-color: var(--primary-cyan) rgba(255, 255, 255, 0.1);
+}
+
+.app-screenshots-gallery.centered-desktop {
+    justify-content: center;
+}
+
+@media (max-width: 768px) {
+    .app-screenshots-gallery.centered-desktop {
+        justify-content: flex-start;
+    }
 }
 
 .app-screenshots-gallery::-webkit-scrollbar {

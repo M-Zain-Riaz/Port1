@@ -51,13 +51,37 @@
                 <li><a href="#home" class="nav-link active">Home</a></li>
                 <li><a href="#about" class="nav-link">About</a></li>
                 <li><a href="#services" class="nav-link">Services</a></li>
-                <li><a href="#education" class="nav-link">Education</a></li>
-                <li><a href="#certificates" class="nav-link">Certificates</a></li>
-                <li><a href="#experience" class="nav-link">Experience</a></li>
+                <li class="nav-dropdown">
+                    <a href="#education" class="nav-link">Education</a>
+                    <div class="dropdown-menu">
+                        <a href="#education" class="dropdown-item" data-education="education-bs">BS Computer Science</a>
+                        <a href="#education" class="dropdown-item" data-education="education-intermediate">Intermediate</a>
+                        <a href="#education" class="dropdown-item" data-education="education-matric">Matriculation</a>
+                    </div>
+                </li>
+                <li class="nav-dropdown">
+                    <a href="#certificates" class="nav-link">Certificates</a>
+                    <div class="dropdown-menu">
+                        <a href="#certificates" class="dropdown-item" data-certificate="certificate-google-ux">YouTube Video Winner</a>
+                        <a href="#certificates" class="dropdown-item" data-certificate="certificate-aws-cloud">AWS Cloud Practitioner</a>
+                        <a href="#certificates" class="dropdown-item" data-certificate="certificate-codex">CODEX 3.0 Winner</a>
+                        <a href="#certificates" class="dropdown-item" data-certificate="certificate-critical-thinking">Critical Thinking</a>
+                        <a href="#certificates" class="dropdown-item" data-certificate="certificate-google-vids">Google Video Editing</a>
+                        <a href="#certificates" class="dropdown-item" data-certificate="certificate-powerbi">Microsoft Power BI</a>
+                    </div>
+                </li>
+                <li class="nav-dropdown">
+                    <a href="#experience" class="nav-link">Experience</a>
+                    <div class="dropdown-menu">
+                        <a href="#experience" class="dropdown-item" data-experience="experience-freelance">Full Stack Freelancer</a>
+                        <a href="#experience" class="dropdown-item" data-experience="experience-pixelforge">PixelForge Studio</a>
+                        <a href="#experience" class="dropdown-item" data-experience="experience-technexus">TechNexus Startup</a>
+                    </div>
+                </li>
                 <li class="nav-dropdown">
                     <a href="#team" class="nav-link">My Team</a>
                     <div class="dropdown-menu">
-                        <a href="#team" class="dropdown-item" data-team="bilal">Muhammad Bilal Talib</a>
+                        <a href="#team" class="dropdown-item" data-team="zain">Muhammad Bilal Talib</a>
                         <a href="#team" class="dropdown-item" data-team="maaz">Muhammad Maaz</a>
                         <a href="#team" class="dropdown-item" data-team="sarib">Syed Muhammad Sarib</a>
                     </div>
@@ -66,7 +90,7 @@
                     <a href="#portfolio" class="nav-link">Portfolio</a>
                     <div class="dropdown-menu dropdown-mega">
                         <div class="dropdown-section">
-                            <span class="dropdown-header">App Development</span>
+                            <a href="#portfolio" class="dropdown-header dropdown-item" data-category="app-development">App Development</a>
                             <a href="#portfolio" class="dropdown-item" data-category="app-development" data-app="smart-iot">Smart IoT Home</a>
                             <a href="#portfolio" class="dropdown-item" data-category="app-development" data-app="skill-bloom">Skill Bloom</a>
                             <a href="#portfolio" class="dropdown-item" data-category="app-development" data-app="expense-tracker">Expense Tracker</a>
@@ -75,7 +99,7 @@
                             <a href="#portfolio" class="dropdown-item" data-category="app-development" data-app="company-management">Company Management</a>
                         </div>
                         <div class="dropdown-section">
-                            <span class="dropdown-header">Software Development</span>
+                            <a href="#portfolio" class="dropdown-header dropdown-item" data-category="software-development">Software Development</a>
                             <a href="#portfolio" class="dropdown-item" data-category="software-development" data-software="inventory-management">Inventory Management</a>
                             <a href="#portfolio" class="dropdown-item" data-category="software-development" data-software="shopping-cart">Shopping Cart System</a>
                         </div>
@@ -549,6 +573,7 @@
     <!-- Spotlight Detail Overlays -->
     <div class="spotlight-detail" id="education-bs" data-spotlight-group="education" style="display: none;">
         <div class="spotlight-detail-inner">
+            <button class="spotlight-close" type="button"><i class="fas fa-times"></i></button>
             <button class="spotlight-back" type="button"><i class="fas fa-arrow-left"></i> Back to Education</button>
             <div class="spotlight-detail-header">
                 <span class="detail-chip"><i class="fas fa-graduation-cap"></i> Education</span>
@@ -578,6 +603,7 @@
 
     <div class="spotlight-detail" id="education-intermediate" data-spotlight-group="education" style="display: none;">
         <div class="spotlight-detail-inner">
+            <button class="spotlight-close" type="button"><i class="fas fa-times"></i></button>
             <button class="spotlight-back" type="button"><i class="fas fa-arrow-left"></i> Back to Education</button>
             <div class="spotlight-detail-header">
                 <span class="detail-chip"><i class="fas fa-graduation-cap"></i> Education</span>
@@ -607,6 +633,7 @@
 
     <div class="spotlight-detail" id="education-matric" data-spotlight-group="education" style="display: none;">
         <div class="spotlight-detail-inner">
+            <button class="spotlight-close" type="button"><i class="fas fa-times"></i></button>
             <button class="spotlight-back" type="button"><i class="fas fa-arrow-left"></i> Back to Education</button>
             <div class="spotlight-detail-header">
                 <span class="detail-chip"><i class="fas fa-graduation-cap"></i> Education</span>
@@ -636,6 +663,7 @@
 
     <div class="spotlight-detail certificate-detail" id="certificate-google-ux" data-spotlight-group="certificates" style="display: none;">
         <div class="spotlight-detail-inner">
+            <button class="spotlight-close" type="button"><i class="fas fa-times"></i></button>
             <button class="spotlight-back" type="button"><i class="fas fa-arrow-left"></i> Back to Certificates</button>
             <div class="spotlight-detail-header">
                 <span class="detail-chip"><i class="fas fa-certificate"></i> Certificate</span>
@@ -676,6 +704,7 @@
 
     <div class="spotlight-detail certificate-detail" id="certificate-aws-cloud" data-spotlight-group="certificates" style="display: none;">
         <div class="spotlight-detail-inner">
+            <button class="spotlight-close" type="button"><i class="fas fa-times"></i></button>
             <button class="spotlight-back" type="button"><i class="fas fa-arrow-left"></i> Back to Certificates</button>
             <div class="spotlight-detail-header">
                 <span class="detail-chip"><i class="fas fa-certificate"></i> Certificate</span>
@@ -716,6 +745,7 @@
 
     <div class="spotlight-detail certificate-detail" id="certificate-codex" data-spotlight-group="certificates" style="display: none;">
         <div class="spotlight-detail-inner">
+            <button class="spotlight-close" type="button"><i class="fas fa-times"></i></button>
             <button class="spotlight-back" type="button"><i class="fas fa-arrow-left"></i> Back to Certificates</button>
             <div class="spotlight-detail-header">
                 <span class="detail-chip"><i class="fas fa-trophy"></i> Achievement</span>
@@ -756,6 +786,7 @@
 
     <div class="spotlight-detail certificate-detail" id="certificate-critical-thinking" data-spotlight-group="certificates" style="display: none;">
         <div class="spotlight-detail-inner">
+            <button class="spotlight-close" type="button"><i class="fas fa-times"></i></button>
             <button class="spotlight-back" type="button"><i class="fas fa-arrow-left"></i> Back to Certificates</button>
             <div class="spotlight-detail-header">
                 <span class="detail-chip"><i class="fas fa-certificate"></i> Certificate</span>
@@ -796,6 +827,7 @@
 
     <div class="spotlight-detail certificate-detail" id="certificate-google-vids" data-spotlight-group="certificates" style="display: none;">
         <div class="spotlight-detail-inner">
+            <button class="spotlight-close" type="button"><i class="fas fa-times"></i></button>
             <button class="spotlight-back" type="button"><i class="fas fa-arrow-left"></i> Back to Certificates</button>
             <div class="spotlight-detail-header">
                 <span class="detail-chip"><i class="fas fa-certificate"></i> Certificate</span>
@@ -836,6 +868,7 @@
 
     <div class="spotlight-detail certificate-detail" id="certificate-powerbi" data-spotlight-group="certificates" style="display: none;">
         <div class="spotlight-detail-inner">
+            <button class="spotlight-close" type="button"><i class="fas fa-times"></i></button>
             <button class="spotlight-back" type="button"><i class="fas fa-arrow-left"></i> Back to Certificates</button>
             <div class="spotlight-detail-header">
                 <span class="detail-chip"><i class="fas fa-certificate"></i> Certificate</span>
@@ -876,6 +909,7 @@
 
     <div class="spotlight-detail" id="experience-freelance" data-spotlight-group="experience" style="display: none;">
         <div class="spotlight-detail-inner">
+            <button class="spotlight-close" type="button"><i class="fas fa-times"></i></button>
             <button class="spotlight-back" type="button"><i class="fas fa-arrow-left"></i> Back to Experience</button>
             <div class="spotlight-detail-header">
                 <span class="detail-chip"><i class="fas fa-briefcase"></i> Experience</span>
@@ -906,6 +940,7 @@
 
     <div class="spotlight-detail" id="experience-pixelforge" data-spotlight-group="experience" style="display: none;">
         <div class="spotlight-detail-inner">
+            <button class="spotlight-close" type="button"><i class="fas fa-times"></i></button>
             <button class="spotlight-back" type="button"><i class="fas fa-arrow-left"></i> Back to Experience</button>
             <div class="spotlight-detail-header">
                 <span class="detail-chip"><i class="fas fa-briefcase"></i> Experience</span>
@@ -935,6 +970,7 @@
 
     <div class="spotlight-detail" id="experience-technexus" data-spotlight-group="experience" style="display: none;">
         <div class="spotlight-detail-inner">
+            <button class="spotlight-close" type="button"><i class="fas fa-times"></i></button>
             <button class="spotlight-back" type="button"><i class="fas fa-arrow-left"></i> Back to Experience</button>
             <div class="spotlight-detail-header">
                 <span class="detail-chip"><i class="fas fa-briefcase"></i> Experience</span>
@@ -971,6 +1007,7 @@
 
     <div class="spotlight-detail" id="team-zain" data-spotlight-group="team" style="display: none;">
         <div class="spotlight-detail-inner">
+            <button class="spotlight-close" type="button"><i class="fas fa-times"></i></button>
             <button class="spotlight-back" type="button"><i class="fas fa-arrow-left"></i> Back to Team</button>
             <div class="spotlight-detail-header">
                 <span class="detail-chip"><i class="fas fa-users"></i> Team</span>
@@ -1007,6 +1044,7 @@
 
     <div class="spotlight-detail" id="team-maaz" data-spotlight-group="team" style="display: none;">
         <div class="spotlight-detail-inner">
+            <button class="spotlight-close" type="button"><i class="fas fa-times"></i></button>
             <button class="spotlight-back" type="button"><i class="fas fa-arrow-left"></i> Back to Team</button>
             <div class="spotlight-detail-header">
                 <span class="detail-chip"><i class="fas fa-users"></i> Team</span>
@@ -1043,6 +1081,7 @@
 
     <div class="spotlight-detail" id="team-sarib" data-spotlight-group="team" style="display: none;">
         <div class="spotlight-detail-inner">
+            <button class="spotlight-close" type="button"><i class="fas fa-times"></i></button>
             <button class="spotlight-back" type="button"><i class="fas fa-arrow-left"></i> Back to Team</button>
             <div class="spotlight-detail-header">
                 <span class="detail-chip"><i class="fas fa-users"></i> Team</span>

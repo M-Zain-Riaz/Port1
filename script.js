@@ -35,6 +35,24 @@ const hamburger = document.querySelector('.hamburger');
 const navMenu = document.querySelector('.nav-menu');
 const navLinks = document.querySelectorAll('.nav-link');
 
+const instantScrollToSection = (targetSection) => {
+    if (!targetSection) return;
+    const html = document.documentElement;
+    const body = document.body;
+    const prevHtmlBehavior = html.style.scrollBehavior;
+    const prevBodyBehavior = body.style.scrollBehavior;
+    html.style.scrollBehavior = 'auto';
+    body.style.scrollBehavior = 'auto';
+
+    const sectionTop = targetSection.offsetTop;
+    window.scrollTo(0, sectionTop);
+    html.scrollTop = sectionTop;
+    body.scrollTop = sectionTop;
+
+    html.style.scrollBehavior = prevHtmlBehavior;
+    body.style.scrollBehavior = prevBodyBehavior;
+};
+
 // Scroll effect for navbar
 window.addEventListener('scroll', () => {
     if (window.scrollY > 100) {
@@ -55,45 +73,76 @@ navLinks.forEach(link => {
     link.addEventListener('click', (e) => {
         hamburger?.classList.remove('active');
         navMenu?.classList.remove('active');
+
+        const targetHref = link.getAttribute('href');
+        const isPortfolioFullscreen = document.body.classList.contains('portfolio-fullscreen');
+        const isSpotlightFullscreen = document.body.classList.contains('spotlight-fullscreen');
         
-        // If in portfolio fullscreen mode, exit it first
-        if (document.body.classList.contains('portfolio-fullscreen')) {
+        // If in any fullscreen/subscreen mode, exit it first and jump instantly
+        if (isPortfolioFullscreen || isSpotlightFullscreen) {
             e.preventDefault();
-            const targetHref = link.getAttribute('href');
             
             // Close portfolio fullscreen
-            const categoriesGrid = document.getElementById('categoriesGrid');
-            const categoryDetails = document.querySelectorAll('.category-details');
-            const portfolioHeader = document.querySelector('#portfolio .section-header');
-            const footer = document.querySelector('.footer');
+            if (isPortfolioFullscreen) {
+                const categoriesGrid = document.getElementById('categoriesGrid');
+                const categoryDetails = document.querySelectorAll('.category-details');
+                const portfolioHeader = document.querySelector('#portfolio .section-header');
+                const footer = document.querySelector('.footer');
+                const appDetailViews = document.querySelectorAll('.app-detail-view');
+                const softwareDetailViews = document.querySelectorAll('.software-detail-view');
+                const appGrid = document.getElementById('appGrid');
+                const softwareGrid = document.getElementById('softwareGrid');
             
-            // Hide all category details
-            categoryDetails.forEach(detail => {
-                detail.style.display = 'none';
-            });
+                // Hide all category details
+                categoryDetails.forEach(detail => {
+                    detail.style.display = 'none';
+                });
+
+                // Reset app/software detail views to grid
+                appDetailViews.forEach(view => {
+                    view.style.display = 'none';
+                });
+                softwareDetailViews.forEach(view => {
+                    view.style.display = 'none';
+                });
+                if (appGrid) appGrid.style.display = 'grid';
+                if (softwareGrid) softwareGrid.style.display = 'grid';
             
-            // Show other sections
-            document.querySelectorAll('section:not(#portfolio)').forEach(section => {
-                section.style.display = '';
-            });
+                // Show other sections
+                document.querySelectorAll('section:not(#portfolio)').forEach(section => {
+                    section.style.display = '';
+                });
             
-            // Show footer
-            if (footer) footer.style.display = '';
+                // Show footer
+                if (footer) footer.style.display = '';
             
-            // Show portfolio header and categories
-            if (portfolioHeader) portfolioHeader.style.display = '';
-            if (categoriesGrid) categoriesGrid.style.display = '';
+                // Show portfolio header and categories
+                if (portfolioHeader) portfolioHeader.style.display = '';
+                if (categoriesGrid) categoriesGrid.style.display = '';
             
-            // Remove fullscreen class
-            document.body.classList.remove('portfolio-fullscreen');
+                // Remove fullscreen class
+                document.body.classList.remove('portfolio-fullscreen');
+            }
+
+            // Close spotlight fullscreen
+            if (isSpotlightFullscreen) {
+                document.querySelectorAll('.spotlight-detail').forEach(detail => {
+                    detail.classList.remove('show');
+                    detail.setAttribute('aria-hidden', 'true');
+                });
+                document.body.classList.remove('spotlight-fullscreen');
+                window.spotlightOpenedFromDropdown = false;
+                window.spotlightDropdownSection = null;
+                activeSpotlightSectionId = null;
+            }
             
             // Navigate to target section
-            setTimeout(() => {
-                if (targetHref && targetHref.startsWith('#')) {
-                    const targetSection = document.querySelector(targetHref);
-                    if (targetSection) {
-                        targetSection.scrollIntoView({ behavior: 'smooth' });
-                        
+            if (targetHref && targetHref.startsWith('#')) {
+                const targetSection = document.querySelector(targetHref);
+                if (targetSection) {
+                    requestAnimationFrame(() => {
+                        instantScrollToSection(targetSection);
+
                         // Update active nav link immediately
                         navLinks.forEach(navLink => {
                             navLink.classList.remove('active');
@@ -101,9 +150,9 @@ navLinks.forEach(link => {
                                 navLink.classList.add('active');
                             }
                         });
-                    }
+                    });
                 }
-            }, 100);
+            }
         }
     });
 });
@@ -140,6 +189,10 @@ window.addEventListener('scroll', () => {
 // ===========================
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
+        // Skip dropdown items - they have their own handler
+        if (this.classList.contains('dropdown-item')) {
+            return;
+        }
         e.preventDefault();
         const target = document.querySelector(this.getAttribute('href'));
         if (target) {
@@ -163,64 +216,283 @@ document.querySelectorAll('.dropdown-item').forEach(item => {
         const app = item.dataset.app;
         const software = item.dataset.software;
         const team = item.dataset.team;
+        const education = item.dataset.education;
+        const certificate = item.dataset.certificate;
+        const experience = item.dataset.experience;
         
         // Close mobile menu if open
         hamburger?.classList.remove('active');
         navMenu?.classList.remove('active');
         
+        // Get required elements
+        const categoriesGrid = document.getElementById('categoriesGrid');
+        const categoryDetails = document.querySelectorAll('.category-details');
+        const portfolioHeader = document.querySelector('#portfolio .section-header');
+        const footer = document.querySelector('.footer');
+        const allSections = document.querySelectorAll('section:not(#portfolio)');
+        const appGrid = document.getElementById('appGrid');
+        const appDetailViews = document.querySelectorAll('.app-detail-view');
+        const softwareGrid = document.getElementById('softwareGrid');
+        const softwareDetailViews = document.querySelectorAll('.software-detail-view');
+        
         // Handle team member navigation
         if (team) {
-            const teamSection = document.getElementById('team');
-            if (teamSection) {
-                teamSection.scrollIntoView({ behavior: 'smooth' });
-                // Trigger click on the team member card after scroll
-                setTimeout(() => {
-                    const teamCard = document.querySelector(`[data-spotlight-target="team-${team}"]`);
-                    if (teamCard) {
-                        teamCard.click();
+            // Directly open the spotlight detail without scrolling
+            const detailId = `team-${team}`;
+            const detail = document.getElementById(detailId);
+            if (detail) {
+                // Save scroll position BEFORE opening so cross button can return here
+                saveScrollPosition();
+                
+                // Set flag to indicate opened from dropdown
+                window.spotlightOpenedFromDropdown = true;
+                window.spotlightDropdownSection = 'team';
+                
+                // Close any existing spotlight details
+                document.querySelectorAll('.spotlight-detail').forEach(item => {
+                    item.classList.remove('show');
+                    item.setAttribute('aria-hidden', 'true');
+                });
+                
+                // Show the team member detail
+                detail.classList.add('show');
+                detail.setAttribute('aria-hidden', 'false');
+                
+                // Add fullscreen class
+                document.body.classList.add('spotlight-fullscreen');
+                document.body.classList.remove('portfolio-fullscreen');
+                
+                // Scroll to top
+                window.scrollTo(0, 0);
+                
+                // Update active nav link
+                navLinks.forEach(navLink => {
+                    navLink.classList.remove('active');
+                    if (navLink.getAttribute('href') === '#team') {
+                        navLink.classList.add('active');
                     }
-                }, 500);
+                });
+            }
+            return;
+        }
+        
+        // Handle education spotlight navigation
+        if (education) {
+            const detail = document.getElementById(education);
+            if (detail) {
+                // Save scroll position BEFORE opening so cross button can return here
+                saveScrollPosition();
+                
+                // Set flag to indicate opened from dropdown
+                window.spotlightOpenedFromDropdown = true;
+                window.spotlightDropdownSection = 'education';
+                
+                // Close any existing spotlight details
+                document.querySelectorAll('.spotlight-detail').forEach(item => {
+                    item.classList.remove('show');
+                    item.setAttribute('aria-hidden', 'true');
+                });
+                
+                // Show the education detail
+                detail.classList.add('show');
+                detail.setAttribute('aria-hidden', 'false');
+                
+                // Add fullscreen class
+                document.body.classList.add('spotlight-fullscreen');
+                document.body.classList.remove('portfolio-fullscreen');
+                
+                // Scroll to top
+                window.scrollTo(0, 0);
+                
+                // Update active nav link
+                navLinks.forEach(navLink => {
+                    navLink.classList.remove('active');
+                    if (navLink.getAttribute('href') === '#education') {
+                        navLink.classList.add('active');
+                    }
+                });
+            }
+            return;
+        }
+        
+        // Handle certificate spotlight navigation
+        if (certificate) {
+            const detail = document.getElementById(certificate);
+            if (detail) {
+                // Save scroll position BEFORE opening so cross button can return here
+                saveScrollPosition();
+                
+                // Set flag to indicate opened from dropdown
+                window.spotlightOpenedFromDropdown = true;
+                window.spotlightDropdownSection = 'certificates';
+                
+                // Close any existing spotlight details
+                document.querySelectorAll('.spotlight-detail').forEach(item => {
+                    item.classList.remove('show');
+                    item.setAttribute('aria-hidden', 'true');
+                });
+                
+                // Show the certificate detail
+                detail.classList.add('show');
+                detail.setAttribute('aria-hidden', 'false');
+                
+                // Add fullscreen class
+                document.body.classList.add('spotlight-fullscreen');
+                document.body.classList.remove('portfolio-fullscreen');
+                
+                // Scroll to top
+                window.scrollTo(0, 0);
+                
+                // Update active nav link
+                navLinks.forEach(navLink => {
+                    navLink.classList.remove('active');
+                    if (navLink.getAttribute('href') === '#certificates') {
+                        navLink.classList.add('active');
+                    }
+                });
+            }
+            return;
+        }
+        
+        // Handle experience spotlight navigation
+        if (experience) {
+            const detail = document.getElementById(experience);
+            if (detail) {
+                // Save scroll position BEFORE opening so cross button can return here
+                saveScrollPosition();
+                
+                // Set flag to indicate opened from dropdown
+                window.spotlightOpenedFromDropdown = true;
+                window.spotlightDropdownSection = 'experience';
+                
+                // Close any existing spotlight details
+                document.querySelectorAll('.spotlight-detail').forEach(item => {
+                    item.classList.remove('show');
+                    item.setAttribute('aria-hidden', 'true');
+                });
+                
+                // Show the experience detail
+                detail.classList.add('show');
+                detail.setAttribute('aria-hidden', 'false');
+                
+                // Add fullscreen class
+                document.body.classList.add('spotlight-fullscreen');
+                document.body.classList.remove('portfolio-fullscreen');
+                
+                // Scroll to top
+                window.scrollTo(0, 0);
+                
+                // Update active nav link
+                navLinks.forEach(navLink => {
+                    navLink.classList.remove('active');
+                    if (navLink.getAttribute('href') === '#experience') {
+                        navLink.classList.add('active');
+                    }
+                });
             }
             return;
         }
         
         // Handle portfolio category navigation
         if (category) {
-            const portfolioSection = document.getElementById('portfolio');
-            if (portfolioSection) {
-                portfolioSection.scrollIntoView({ behavior: 'smooth' });
+            const detailSection = document.getElementById(category);
+            
+            if (detailSection) {
+                // Set flag to indicate opened from dropdown
+                window.portfolioOpenedFromDropdown = true;
                 
-                setTimeout(() => {
-                    // Click on the category card
-                    const categoryCard = document.querySelector(`[data-category="${category}"]`);
-                    if (categoryCard) {
-                        categoryCard.click();
-                        
-                        // If there's a specific app or software, click on it after category opens
-                        if (app) {
-                            setTimeout(() => {
-                                const appCard = document.querySelector(`[data-app="${app}"]`);
-                                if (appCard) {
-                                    appCard.click();
-                                }
-                            }, 400);
-                        } else if (software === 'inventory-management') {
-                            setTimeout(() => {
-                                const softwareCard = document.querySelector(`[data-software="${software}"]`);
-                                if (softwareCard) {
-                                    softwareCard.click();
-                                }
-                            }, 400);
-                        } else if (software === 'shopping-cart') {
-                            setTimeout(() => {
-                                const youtubeCard = document.querySelector('[data-youtube]');
-                                if (youtubeCard) {
-                                    youtubeCard.click();
-                                }
-                            }, 400);
-                        }
+                // Hide ALL other sections
+                allSections.forEach(section => {
+                    section.style.display = 'none';
+                });
+                
+                // Hide footer
+                if (footer) {
+                    footer.style.display = 'none';
+                }
+                
+                // Hide portfolio section header
+                if (portfolioHeader) {
+                    portfolioHeader.style.display = 'none';
+                }
+                
+                // Hide categories grid
+                if (categoriesGrid) {
+                    categoriesGrid.style.display = 'none';
+                }
+                
+                // Hide all detail sections
+                categoryDetails.forEach(detail => {
+                    detail.style.display = 'none';
+                });
+                
+                // Reset app/software views to grid
+                if (appDetailViews) {
+                    appDetailViews.forEach(view => {
+                        view.style.display = 'none';
+                    });
+                }
+                if (softwareDetailViews) {
+                    softwareDetailViews.forEach(view => {
+                        view.style.display = 'none';
+                    });
+                }
+                if (appGrid) appGrid.style.display = 'grid';
+                if (softwareGrid) softwareGrid.style.display = 'grid';
+                
+                // Show selected detail section
+                detailSection.style.display = 'block';
+                
+                // Add class to body for full-screen mode
+                document.body.classList.add('portfolio-fullscreen');
+                
+                // Scroll to top instantly
+                window.scrollTo(0, 0);
+                
+                // Update active nav link
+                navLinks.forEach(navLink => {
+                    navLink.classList.remove('active');
+                    if (navLink.getAttribute('href') === '#portfolio') {
+                        navLink.classList.add('active');
                     }
-                }, 500);
+                });
+                
+                // If there's a specific app, open it after category shows
+                if (app) {
+                    setTimeout(() => {
+                        const appDetailView = document.getElementById(app);
+                        if (appDetailView && appGrid) {
+                            appGrid.style.display = 'none';
+                            appDetailViews.forEach(view => {
+                                view.style.display = 'none';
+                            });
+                            appDetailView.style.display = 'block';
+                            window.scrollTo(0, 0);
+                        }
+                    }, 100);
+                }
+                
+                // If there's a specific software, open it
+                if (software === 'inventory-management') {
+                    setTimeout(() => {
+                        const softwareDetailView = document.getElementById('inventory-management');
+                        if (softwareDetailView && softwareGrid) {
+                            softwareGrid.style.display = 'none';
+                            softwareDetailViews.forEach(view => {
+                                view.style.display = 'none';
+                            });
+                            softwareDetailView.style.display = 'block';
+                            window.scrollTo(0, 0);
+                        }
+                    }, 100);
+                } else if (software === 'shopping-cart') {
+                    setTimeout(() => {
+                        const youtubeCard = document.querySelector('[data-youtube]');
+                        if (youtubeCard) {
+                            youtubeCard.click();
+                        }
+                    }, 100);
+                }
             }
         }
     });
@@ -327,9 +599,38 @@ const closeSpotlightDetail = () => {
     });
     document.body.classList.remove('spotlight-fullscreen');
 
-    // Restore the exact scroll position where the user opened the spotlight
-    restoreScrollPosition(true);
+    // Check if opened from dropdown - navigate to the section directly
+    if (window.spotlightOpenedFromDropdown) {
+        const section = document.getElementById(window.spotlightDropdownSection);
+        if (section) {
+            // Get section position and scroll instantly
+            const sectionTop = section.offsetTop;
+            window.scrollTo(0, sectionTop);
+        }
+        window.spotlightOpenedFromDropdown = false;
+        window.spotlightDropdownSection = null;
+    } else {
+        // Restore the exact scroll position where the user opened the spotlight
+        restoreScrollPosition(true);
+    }
 
+    activeSpotlightSectionId = null;
+};
+
+// Close spotlight with cross button - always restore previous position
+const closeSpotlightWithCross = () => {
+    spotlightDetails.forEach(detail => {
+        detail.classList.remove('show');
+        detail.setAttribute('aria-hidden', 'true');
+    });
+    document.body.classList.remove('spotlight-fullscreen');
+    
+    // Always restore scroll position (go back to where user came from)
+    restoreScrollPosition(false);
+    
+    // Reset dropdown flags
+    window.spotlightOpenedFromDropdown = false;
+    window.spotlightDropdownSection = null;
     activeSpotlightSectionId = null;
 };
 
@@ -384,6 +685,14 @@ spotlightBackButtons.forEach(button => {
     });
 });
 
+// Close buttons (X) for spotlight details - returns to where user came from
+const spotlightCloseButtons = document.querySelectorAll('.spotlight-close');
+spotlightCloseButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        closeSpotlightWithCross();
+    });
+});
+
 spotlightDetails.forEach(detail => {
     detail.addEventListener('click', (event) => {
         if (event.target === detail) {
@@ -421,6 +730,22 @@ const softwareCards = document.querySelectorAll('.software-card');
 const softwareDetailViews = document.querySelectorAll('.software-detail-view');
 const softwareGrid = document.getElementById('softwareGrid');
 const backToSoftwareButtons = document.querySelectorAll('.back-to-software-button');
+
+// Center screenshot galleries with 3 or fewer items on desktop
+const screenshotGalleries = document.querySelectorAll('.app-screenshots-gallery');
+const updateScreenshotCentering = () => {
+    const isMobile = window.innerWidth <= 768;
+    screenshotGalleries.forEach(gallery => {
+        const count = gallery.querySelectorAll('.screenshot-item').length;
+        if (!isMobile && count <= 3) {
+            gallery.classList.add('centered-desktop');
+        } else {
+            gallery.classList.remove('centered-desktop');
+        }
+    });
+};
+updateScreenshotCentering();
+window.addEventListener('resize', updateScreenshotCentering);
 
 categoryCards.forEach(card => {
     card.addEventListener('click', () => {
@@ -492,6 +817,9 @@ backButtons.forEach(button => {
             scrollHistory.pop(); // Discard the scroll position saved when clicking the card
         }
         
+        // Check if this was opened from dropdown
+        const openedFromDropdown = window.portfolioOpenedFromDropdown;
+        
         // Add fade-out to current detail section
         const activeDetail = document.querySelector('.category-details[style*="display: block"]');
         if (activeDetail) {
@@ -541,8 +869,18 @@ backButtons.forEach(button => {
             // Remove full-screen class
             document.body.classList.remove('portfolio-fullscreen');
             
-            // Restore previous scroll position instantly (no smooth scrolling)
-            restoreScrollPosition(false);
+            // If opened from dropdown, go to Portfolio section directly
+            if (openedFromDropdown) {
+                const portfolioSection = document.getElementById('portfolio');
+                if (portfolioSection) {
+                    const sectionTop = portfolioSection.offsetTop;
+                    window.scrollTo(0, sectionTop);
+                }
+                window.portfolioOpenedFromDropdown = false;
+            } else {
+                // Restore previous scroll position instantly (no smooth scrolling)
+                restoreScrollPosition(false);
+            }
             
             // Fade in the categories grid
             categoriesGrid.classList.add('fade-in-active');
