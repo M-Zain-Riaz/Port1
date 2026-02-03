@@ -1240,6 +1240,17 @@ const openLightbox = (imageSrc, imageAlt, imageTitle, galleryImages, index) => {
     updateLightboxInfo();
     updateNavigationButtons();
     
+    // Show/hide client profile button based on category
+    const clientProfileBtn = document.getElementById('lightbox-client-profile');
+    const graphicsCategory = document.getElementById('graphics-designing');
+    if (clientProfileBtn) {
+        if (graphicsCategory && graphicsCategory.style.display !== 'none') {
+            clientProfileBtn.style.display = 'flex';
+        } else {
+            clientProfileBtn.style.display = 'none';
+        }
+    }
+    
     document.body.style.overflow = 'hidden';
     resetZoom();
 };
@@ -1368,6 +1379,38 @@ lightboxZoomOut?.addEventListener('click', zoomOut);
 lightboxZoomReset?.addEventListener('click', resetZoom);
 lightboxDownload?.addEventListener('click', downloadImage);
 lightboxImg?.addEventListener('load', applyOrientationClass);
+
+// Client Social Modal
+const clientProfileBtn = document.getElementById('lightbox-client-profile');
+const clientSocialModal = document.getElementById('clientSocialModal');
+const clientSocialClose = document.querySelector('.client-social-close');
+const clientSocialOverlay = document.querySelector('.client-social-overlay');
+
+// Show client social modal (only for graphics-designing category)
+clientProfileBtn?.addEventListener('click', () => {
+    // Check if current category is graphics-designing
+    const graphicsCategory = document.getElementById('graphics-designing');
+    if (graphicsCategory && graphicsCategory.style.display !== 'none') {
+        clientSocialModal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+    }
+});
+
+// Close client social modal
+const closeClientModal = () => {
+    clientSocialModal.style.display = 'none';
+    document.body.style.overflow = '';
+};
+
+clientSocialClose?.addEventListener('click', closeClientModal);
+clientSocialOverlay?.addEventListener('click', closeClientModal);
+
+// ESC key to close client modal
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && clientSocialModal?.style.display === 'flex') {
+        closeClientModal();
+    }
+});
 
 // Click outside to close
 lightbox?.addEventListener('click', (e) => {
