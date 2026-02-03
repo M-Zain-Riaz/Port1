@@ -1240,14 +1240,15 @@ const openLightbox = (imageSrc, imageAlt, imageTitle, galleryImages, index) => {
     updateLightboxInfo();
     updateNavigationButtons();
     
-    // Show/hide client profile button based on category
+    // Show/hide client profile button based on category and image
     const clientProfileBtn = document.getElementById('lightbox-client-profile');
     const graphicsCategory = document.getElementById('graphics-designing');
     if (clientProfileBtn) {
-        if (graphicsCategory && graphicsCategory.style.display !== 'none') {
-            clientProfileBtn.style.display = 'flex';
-        } else {
+        // Hide button if it's b1.jpeg or not in graphics-designing category
+        if (imageSrc.includes('b1.jpeg') || !graphicsCategory || graphicsCategory.style.display === 'none') {
             clientProfileBtn.style.display = 'none';
+        } else {
+            clientProfileBtn.style.display = 'flex';
         }
     }
     
